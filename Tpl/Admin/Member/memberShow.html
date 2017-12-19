@@ -1,0 +1,72 @@
+<include file="Public/Admin/Common/Meta.html" />
+<title>用户查看</title>
+</head>
+
+<body>
+    <div class="cl pd-20" style=" background-color:#5bacb6">
+        <if condition="$arr['m_avatar'] ==  ''">
+            <img class="avatar size-XL l" src="__PUBLIC__/Admin/static/h-ui/images/ucnter/avatar-default.jpg">
+            <else />
+            <img class="avatar size-XL l" src="<{$arr.m_avatar}>">
+        </if>
+        <dl style="margin-left:80px; color:#fff">
+            <dt>
+                <span class="f-18">帐号：<{$arr.account}></span>
+                
+            </dt>
+            <dt>
+                <if condition="$arr['balance'] eq ''">
+                <span class="f-18">余额：0</span>
+                <else />
+                <span class="f-18">余额：<{$arr.balance}></span>
+                </if>
+            </dt>
+        </dl>
+    </div>
+    <div class="pd-20">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th class="text-r" width="80">姓名：</th>
+                    <td><{$arr.name}></td>
+                </tr>
+                <tr>
+                    <th class="text-r">手机：</th>
+                    <td><{$arr.m_phone}></td>
+                </tr>
+                <tr>
+                    <th class="text-r">推荐人：</th>
+                    <td><{$arr.recommend_name}></td>
+                </tr>
+                <tr>
+                    <th class="text-r">所属联创：</th>
+                    <td><{$arr.lc_name}></td>
+                </tr>
+                <tr>
+                    <th class="text-r">身份证号：</th>
+                    <td><{$arr.id_number}></td>
+                </tr>
+                <tr>
+                    <th class="text-r">注册时间：</th>
+                    <td>
+                        <{$arr.reg_time|date='Y-m-d H:i:s' ,###}>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="text-r">通过时间：</th>
+                    <td>
+                        <if condition="$arr['pass_time'] eq 0">
+                            还未通过审核
+                            <else />
+                        <{$arr.pass_time|date='Y-m-d H:i:s' ,###}>
+                        </if>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+</body>
+
+</html>

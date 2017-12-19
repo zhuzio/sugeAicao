@@ -1,0 +1,128 @@
+.changeInfo_container{
+    width: 100%;
+    height: auto;
+}
+.a_head_box{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+}
+.a_head_box >div{
+    width: 33.3333333%;
+    height: 100%;
+    float: left;
+}
+.a_head_back >a{
+    display: block;
+    width: .3rem;
+    height: .4rem;
+    margin-top: .2rem;
+    margin-left: .2rem;
+    background: url("../image/1-return.png") no-repeat center;
+    background-size: .2rem 100%;
+}
+.a_head_title{
+    text-align: center;
+    line-height: .8rem;
+    font-size: .3rem;
+}
+.info_list{
+    width: 100%;
+    height: auto;
+    background-color: white;
+    margin-top: .2rem;
+}
+.each_info{
+    width: 94%;
+    height: .8rem;
+    margin: 0 auto;
+    line-height: .8rem;
+    border-bottom: 1px solid #d9d9d9;
+}
+.ei_title{
+    font-size: .26rem;
+    display: inline-block;
+    width: 25%;
+    color: #999;
+}
+.each_info >input{
+    width: 60%;
+    height: 80%;
+    border: none;
+}
+.tel_list{
+    background: url("../image/right.png") no-repeat right center;
+    background-size: auto .3rem;
+}
+.modify_tel_container{
+    position: fixed;
+    top:100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modify_tel{
+    width: 80%;
+    height: 3.5rem;
+    background-color: white;
+    border-radius: .15rem;
+}
+.m_title{
+    font-size: .28rem;
+    padding: .2rem .2rem;
+}
+.modify_tel >div{
+    width: 90%;
+    height: .8rem;
+    line-height: .8rem;
+    padding:  0 5%;
+}
+.modify_tel >div >input{
+    border: none;
+    height: .54rem;
+    width: 60%;
+    font-size: .26rem;
+    border-bottom: 1px solid #ccc;
+}
+.getMessage{
+    /*width: 30%;*/
+    /*height: .6rem;*/
+    padding: .1rem .1rem;
+
+    margin-left: 2%;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: .1rem;
+    font-size: .22rem;
+    overflow: hidden;
+}
+.c_mod{
+    height: auto !important;
+    overflow: hidden;
+}
+.cancel,
+.confirm{
+    margin-top: .3rem;
+    width: 48%;
+    height: .65rem;
+    border: 1px solid ;
+    border-radius: .1rem;
+    background-color: white;
+    font-size: .26rem;
+}
+.cancel{
+    border-color: #909090;
+    color: #909090;
+}
+.confirm{
+    border-color: rgb(253,101,35);
+    color:  rgb(253,101,35);
+}
+
+
+
+

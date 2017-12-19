@@ -1,0 +1,25 @@
+body{
+	background-image: url(../picture/bgi.jpg);
+	background-size: cover;
+}
+.login{
+	width:1000px;
+	height:400px;
+	margin:100px auto;
+	border:1px;
+	background-color: rgba(f, f, f, 0.8);
+	padding: 1px;
+	position:relative;
+	color:#fff;
+}
+canvas{ position: absolute;
+ 		backface-visibility: hidden; 
+		-webkit-backface-visibility: hidden;
+		-moz-backface-visibility: hidden;
+	 	-ms-backface-visibility: hidden;
+}
+img {
+	 position: absolute;
+	 -webkit-transition: opacity .3s;
+	  transition: opacity .3s;
+}

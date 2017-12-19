@@ -1,0 +1,155 @@
+<style>
+li {
+    list-style-type: none;
+}
+
+#menu {
+    margin-top: 8%;
+    position: fixed;
+}
+
+a {
+    color: #999;
+}
+
+.background {
+    text-align: center;
+    padding: 0 16px;
+    border-radius: 6px;
+    width: 166px;
+    background-color: #00A5E2;
+}
+
+ul {
+    margin-top: 10px;
+}
+
+.background a {
+    color: white;
+    line-height: 36px;
+    width: 99px;
+    padding: 0 16px;
+    border-radius: 6px;
+    text-align: center;
+    width: 199px;
+}
+
+body {
+    background: #f4f1ea
+}
+
+.profile-picture {
+    position: relative;
+}
+
+.stats-label text-color {
+    color: #FFF;
+}
+
+html,
+body {
+    background: #f4f1ea;
+}
+
+#wrapper {
+    background-color: #f4f1ea;
+}
+</style>
+</head>
+
+<body>
+    <aside id="menu" style="width:200px; z-index:10; padding-left:90px; height: auto;">
+        <div id="navigation" style="padding-top:100px;">
+            <div class="profile-picture">
+                <div class="textBox_Box">
+                    <ul>
+                        <div class="background">
+                            <a href="__MODULE__/Index/index">我的首页</a>
+                            <br/>
+                        </div>
+                    </ul>
+                    <ul>
+                        <div class="background">
+                            <a href="__MODULE__/Register/index">注册会员</a>
+                            <br/>
+                        </div>
+                    </ul>
+                    <ul class="an1">
+                        <div class="background">
+                            <a style="color:white;line-height:36px;border-radius:6px;padding:0 16px; text-align:center;">管理团队</a>
+                        </div>
+                        <li class="a1" style="color:#f58778">
+                            <a style="color:#f58778" href="__MODULE__/Myuser/index">推荐列表</a>
+                            <br/>
+                            <a href="__MODULE__/Myuser/team" style="color:#f58778">我的团队</a>
+                            <br/>
+                            <a href="__MODULE__/Myuser/checkList" style="color:#f58778">待审核列表</a>
+                        </li>
+                    </ul>
+                    <ul class="an3">
+                        <div class="background">
+                            <a>账户管理</a>
+                        </div>
+                        <li class="a3">
+                            <a href="__MODULE__/Info/index" style="color:#f58778">个人资料</a>
+                            <br/>
+                            <a href="__MODULE__/Info/changePassword" style="color:#f58778">更改密码</a>
+                            <br/>
+                        </li>
+                    </ul>
+                    <ul>
+                        <div class="background">
+                            <a href="__MODULE__/Info/cwgl">财务管理</a>
+                            <br/>
+                        </div>
+                    </ul>
+                    <ul>
+                        <div class="background">
+                            <a href="__MODULE__/Index/news">新闻公告</a>
+                            <br/>
+                        </div>
+                    </ul>
+                    <ul>
+                        <div class="background">
+                            <a href="__MODULE__/Info/contactUs">联系我们</a>
+                            <br/>
+                        </div>
+                    </ul>
+                    <ul class="dropdown">
+                        <div class="background">
+                            <a href="__MODULE__/Login/loginOut">
+                            退出
+                        </a>
+                        </div>
+                    </ul>
+                    <div style="clear: both;"></div>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <include file="Public/Admin/Common/Footer.html" />
+    <script>
+    $(".textBox_Box li").hide();
+    $(".an1").mouseenter(
+            function() {
+                $(".textBox_Box .a1").show()
+            }
+        )
+        .mouseleave(
+            function() {
+                $(".textBox_Box .a1").hide()
+
+            }
+        )
+
+    $(".an3").mouseenter(
+        function() {
+            $(".textBox_Box .a3").show()
+        }
+    ).mouseleave(
+        function() {
+            $(".textBox_Box .a3").hide()
+
+        }
+    )
+    </script>

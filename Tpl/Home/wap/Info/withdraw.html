@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>申请提现</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/withdraw.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="a_head_box">
+        <div class="a_head_back">
+            <a href="javascript:window.history.back()"></a>
+        </div>
+        <div class="a_head_title">申请提现</div>
+        <div class="a_head_msg">
+        </div>
+    </div>
+    <div class="withdraw_container">
+        <p>提示：满 <span style="color: red;"><{$settings.zdtxed}></span> 可提现，提现日期为每月 <span style="color: red;"> <{$settings.txrq}></span> 号以后，可提金额为本月之前的分红</p>
+        <div class="w_container">
+            <p>账户总余额：¥
+                <if condition="$memberInfo['balance'] eq ''">
+                    <span class="account_balance">0</span>
+                    <else />
+                    <span class="account_balance"><{$memberInfo.balance}></span>
+                </if>
+            </p>
+            <p>可提现金额：<span style="color:rgb(253,131,0);" id="plus"><{$plus}></span></p>
+            <p>到账卡号：
+                <input type="number" placeholder="请输入您的银行卡号" class="brandCard">
+            </p>
+            <div class="withdraw_money">
+                <p class="w_title">提现金额 ：</p>
+                <h2>¥ <input type="number" class="w_money" onblur="testNumber()"></h2>
+                <button class="withdraw_btn">提现</button>
+                <p class="w_fu">1-5个工作日</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+<script>
+function testNumber() {
+
+    var inputValue = $(".w_money").val();
+    var reg = /^[1-9]\d*$/;
+    if (reg.test(inputValue) == false) {
+        layer.msg('提现金额格式不正确！', {
+            icon: 2,
+            time: 1500,
+        });
+    }
+
+}
+var bool = true;
+
+$(".withdraw_btn").click(function() {
+    var inputValue = $(".w_money").val();
+    var plus = $('#plus').text();
+    if(inputValue>plus){
+        layer.msg('提现金额大于可提现金额！', {
+            icon: 2,
+            time: 1500,
+        });
+        bool=true;
+        return false;
+    }
+    if (bool) {
+        bool = false;
+        var n_moeng = $(".account_balance").html();
+        var w_money = $(".w_money").val();
+        var z_reg = /^[1-9]\d*$/;
+        var brandCard = $(".brandCard").val();
+        console.log(parseFloat(n_moeng) + "-----" + parseFloat(w_money))
+        //判断提现金额与余额的大小
+        if (z_reg.test(w_money) == false) {
+            layer.msg('提现金额格式不正确！', {
+                icon: 2,
+                time: 1500,
+            });
+            bool=true;
+            return false;
+        }
+        if (parseFloat(w_money) < parseFloat(<{$settings.zdtxed}>)) {
+            layer.msg('提现金额为<{$settings.zdtxed}>起！', {
+                icon: 2,
+                time: 1500,
+            });
+            bool=true;
+            return false;
+        }
+        if (parseFloat(w_money) > parseFloat(n_moeng)) {
+            layer.msg('余额不足！', {
+                icon: 2,
+                time: 1500,
+            });
+            bool=true;
+            return false;
+        } else if (!$(".brandCard").val() || !$(".w_money").val()) {
+            layer.msg('请完善您的提现信息！', {
+                icon: 2,
+                time: 1500,
+            });
+            bool=true;
+            return false;
+        } else {
+            console.log(bool)
+             layer.msg('加载中...', {
+                 icon: 16,
+                 shade: 0.01
+             });
+             $.ajax({
+                 url: "__MODULE__/Info/withdrawAction",
+                 dataType: "json",
+                 type: "post",
+                 data: { money: w_money, yhk: brandCard },
+                 success: function(e) {
+                     if (e.code == 1) {
+                         layer.msg('申请成功！', {
+                             icon: 1,
+                             time: 1200,
+                         });
+                         window.location.href = "__MODULE__/Info/withdrawRecord";
+                     } else {
+                         layer.msg(e.msg, {
+                             icon: 2,
+                             time: 1500,
+                         });
+                         bool=true;
+                     }
+
+                 },
+                 error: function(e) {
+
+                 }
+             })
+
+
+
+
+        }
+
+    } else {
+        layer.msg('稍后点击', {
+            icon: 2,
+            time: 1500,
+            shade: 0.01
+        });
+
+        $('.brandCard').bind('input propertychange', function() {　　
+            bool = true;
+        });
+        $('.w_money').bind('input propertychange', function() {　　
+            bool = true;
+        });
+
+
+        return false;
+    }
+
+});
+</script>
+
+</html>

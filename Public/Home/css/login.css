@@ -1,0 +1,96 @@
+    .login_container{
+    width:100% ;
+    height: 100%;
+    background: url("../image/login_bg.png") no-repeat;
+    background-size: cover;
+}
+.login_form,
+.fp_form,
+.np_form{
+    width: 80%;
+    margin: 0 auto;
+    padding-top: 1.5rem;
+    line-height: .8rem;
+}
+.lg_list,
+.fp_list,
+.np_list{
+    height: .8rem;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+}
+.fp_list:nth-child(1) >input{
+    width: 71% !important;
+}
+.lg_title{
+    font-size: .3rem;
+    letter-spacing: .25rem;
+    font-family:幼圆;
+}
+.fp_title{
+    display: inline-block;
+    width: 27%;
+    font-size: .3rem;
+    font-family:幼圆;
+}
+.np_title{
+    display: inline-block;
+    width: 27%;
+    font-size: .3rem;
+    font-family:幼圆;
+}
+.lg_list >input{
+    border: none;
+    height: 80%;
+    width: 70%;
+    background: none;
+    font-size: .27rem;
+}
+.fp_list >input{
+    width: 40%;
+    border: none;
+    height: 80%;
+    background: none;
+    font-size: .27rem;
+}
+.np_list >input{
+    width: 70%;
+    border: none;
+    height: 80%;
+    background: none;
+    font-size: .27rem;
+}
+.getMessage{
+    display: inline-block;
+    width: 33%;
+    height: .6rem;
+    border: 1px solid  rgb(253,101,0);
+    color:  rgb(253,101,0);
+    font-size: .22rem;
+    background: none;
+    border-radius: .1rem;
+    box-sizing: border-box;
+    line-height: .6rem;
+    text-align: center;
+}
+.lg_submit,
+.fp_submit,
+.np_submit{
+    width: 100%;
+    display: block;
+    height: .8rem;
+    margin: .5rem auto 0;
+    border: none;
+    border-radius: .1rem;
+    background: rgb(253,101,0);
+    font-size: .3rem;
+    color: white;
+    letter-spacing: .2rem;
+    font-family:幼圆;
+    font-weight: 600;
+}
+.f_p >a{
+    padding-left: .5rem;
+    font-size: .23rem;
+    color: #a8a8a8;
+}

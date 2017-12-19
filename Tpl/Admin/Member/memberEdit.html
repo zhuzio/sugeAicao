@@ -1,0 +1,91 @@
+<include file="Public/Admin/Common/Meta.html" />
+<!--/meta 作为公共模版分离出去-->
+<title>会员编辑 - 艾草代理商管理平台 V 1.0</title>
+<meta name="keywords" content="艾草代理商管理平台 V 1.0">
+<meta name="description" content="艾草代理商管理平台 V 1.0">
+</head>
+
+<body>
+    <article class="page-container">
+        <form action="__CONTROLLER__/memberEditAction" method="post" class="form form-horizontal" id="form-member-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$arr.account}>" name="account" readonly>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$arr.name}>" placeholder="" id="name" name="name">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>身份证号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$arr.id_number}>" placeholder="" id="id_number" name="id_number">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>手机：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$arr.m_phone}>" placeholder="" id="phone" name="phone">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>密码：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="password" class="input-text" name="pass" placeholder="不修改请留空"  id="pass">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="password" class="input-text" name="pass2" placeholder="不修改请留空" id="pass2">
+                </div>
+            </div>
+            
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+
+    
+    $(function() {
+
+        $("#form-member-add").validate({
+            rules: {
+                account: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
+                },
+                name: {
+                    required: true,
+                },
+                phone: {
+                    required: true,
+                    isMobile: true,
+                },
+                id_number: {
+                    required: true,
+                },
+
+            },
+            
+        });
+    });
+    </script>
+</body>
+
+</html>

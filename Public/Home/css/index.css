@@ -1,0 +1,119 @@
+.container{
+    width: 100%;
+    height: 100%;
+    background:url("../image/index_bg.png") no-repeat center center;
+    background-size: 100% 100%;
+    overflow-x: hidden;
+    overflow-y:scroll ;
+}
+.my_recommender{
+    font-size: .2rem;
+    color: #828586;
+    padding: .2rem 0 0 .2rem;
+}
+.my_recommender >span{
+    margin-right: .3rem;
+}
+.user_logo{
+    width: 100%;
+    height: auto;
+}
+.u_logo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .3rem 0 0.2rem 0;
+}
+.u_logo >img{
+    display: block;
+    width: 1.6rem;
+    height: auto;
+}
+.name_position{
+    text-align: center;
+    font-size: .25rem;
+}
+.team_container{
+    width: 96%;
+    height: auto;
+    overflow: hidden;
+    margin: 0.2rem auto .3rem;
+    border-top: 1px solid #e8e8e8;
+}
+.team_container >div{
+    float: left;
+    width: 33.3333%;
+    height:auto;
+    /*background: #f0ad4e;*/
+}
+.t_title{
+    text-align: center;
+    font-size: .23rem;
+    padding-top: .25rem;
+    color: #999;
+}
+.t_con{
+    text-align: center;
+    padding-top: .2rem;
+    color: #FD6405;
+    font-weight: normal;
+    font-size: .3rem;
+}
+.t_con >span{
+    font-size: .4rem;
+    padding-right: .1rem;
+}
+.team_manger_container{
+    width: 94%;
+    height: auto;
+    margin: .2rem auto 0;
+    background: white;
+    border-radius: .1rem;
+    padding-bottom: .15rem;
+}
+.t_m_title{
+    font-size: .28rem;
+    letter-spacing: 1.5px;
+    padding:.2rem .25rem;
+    /*background: #e9e9e9;*/
+}
+.t_m_con{
+    width: 100%;
+    /*margin: 0 auto;*/
+    overflow: hidden;
+    border-top: 1px solid #e5e5e5;
+}
+.t_m_con >div{
+    width: 25%;
+    height: 1.4rem;
+    float: left;
+    background: url("../image/line.png") no-repeat right center;
+    background-size: 1px 75%;
+    text-align: center;
+    position: relative;
+}
+.t_m_con >div:nth-last-child(1){
+    background: none;
+}
+.t_m_con >div p{
+    width: 100%;
+    text-align: center ;
+    position: absolute;
+    bottom: 0.1rem;
+    font-size: .24rem;
+}
+.t_m_con >div >a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: .65rem auto;
+}
+.t_m_con >div >a >img{
+    display: block;
+    width: auto;
+    height: .6rem;
+    margin: .2rem auto 0;
+}
+

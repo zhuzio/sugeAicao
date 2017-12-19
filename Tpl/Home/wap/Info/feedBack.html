@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>意见反馈</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/feedBack.css">
+    <link rel="stylesheet" href="__HOME_CSS__/withDrawRecord.css">
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+
+</head>
+
+<body>
+    <div class="feed_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="javascript:window.history.back()"></a>
+            </div>
+            <div class="a_head_title">意见反馈</div>
+            <div class="a_head_msg">
+            </div>
+        </div>
+        <div class="feed_con">
+            <p class="feed_title">您的建议或意见</p>
+            <textarea name="" id="" class="feed_txt">请输入您的意见或建议，我们会认真聆听</textarea>
+            <button class="fb_btn">提交</button>
+        </div>
+        <p class="com_tel">客服电话<a href="tel:4006203777">400-6203-777</a></p>
+    </div>
+    <!--<div class="wr_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+            </div>
+            <div class="a_head_title">意见反馈记录</div>
+            <div class="a_head_msg">
+            </div>
+        </div>
+        &lt;!&ndash;搜索&ndash;&gt;
+        &lt;!&ndash;<div class="search_container">&ndash;&gt;
+        &lt;!&ndash;<div class="s_container">&ndash;&gt;
+        &lt;!&ndash;<input type="search" class="search" placeholder="请输入关键信息">&ndash;&gt;
+        &lt;!&ndash;<input type="submit" class="button" value="搜索">&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;</div>&ndash;&gt;
+        &lt;!&ndash;意见反馈记录&ndash;&gt;
+        <div class="r_list_container">
+            <table>
+                <tr>
+                    <th class="u_id">编号</th>
+                    <th class="u_count">意见内容</th>
+                    <th class="u_rcmdr">意见反馈时间</th>
+                </tr>
+                <foreach name="yj_list" item="list">
+                    <tr>
+                        <td>
+                            <{$list.id}>
+                        </td>
+                        <td>
+                            <{$list.opinion}>
+                        </td>
+                        <td>
+                            <{$list.create_time|date='Y-m-d H:i:s' ,###}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <div class="pages" style="padding-top: .25rem">
+                <{$page}>
+            </div>
+        </div>
+    </div>-->
+</body>
+<script>
+$(".feed_txt").focus(function() {
+    if ($(this).val() == "请输入您的意见或建议，我们会认真聆听") {
+        $(this).val("").css("color", "#000");
+    }
+});
+$(".fb_btn").click(function() {
+    console.log($(".feed_txt").val())
+    if (!$(".feed_txt").val()) {
+        layer.msg('意见不能为空!', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else {
+        var opinion = $(".feed_txt").val();
+        $.ajax({
+            url: "__MODULE__/Info/feedBackAction",
+            dataType: "json",
+            type: "post",
+            data: { opinion: opinion },
+            success: function(e) {
+                if (e.code == 1) {
+                    layer.msg('反馈成功', {
+                        icon: 1,
+                        time: 1200,
+                    });
+                    window.location.href='__MODULE__/Info/feedBack'
+                } else {
+                    layer.msg(e.msg, {
+                        icon: 2,
+                        time: 1500,
+                    });
+                }
+            },
+            error: function(e) {
+
+            }
+        })
+    }
+})
+</script>
+
+</html>

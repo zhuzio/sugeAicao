@@ -1,0 +1,61 @@
+<?php
+    if(C('LAYOUT_ON')) {
+        echo '{__NOLAYOUT__}';
+    }
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <!DOCTYPE html>
+    <html>
+    <head>
+        <title> 页面自动...跳转中 
+        </title>
+        <script src="__PUBLIC__/js/jquery.min.js"></script>
+        <script src="__PUBLIC__/Admin/lib/layer/2.4/layer.js"></script>
+    </head>
+    <body>
+        <b id="wait" style='display:none'><?php echo($waitSecond); ?></b>
+        <a id="href" href="<?php echo($jumpUrl); ?>" style='display:none'>跳转</a>
+        <script type="text/javascript">
+        $(function() {
+                    var mess = "<?php echo($message); ?>";
+                    var err = "<?php echo($error); ?>";
+                    var jumpurl = "<?php echo($jumpUrl); ?>";
+                    var waitSecond = "<?php echo($waitSecond); ?>";
+                    <?php if(isset($message)) {?>
+                    var suc = mess + '页面自动跳转中...';
+                    layer.alert(suc, {
+                            icon: 1,
+                            title: mess,
+                            success: function(layer) {
+                                var wait = document.getElementById('wait'),
+                                    href = document.getElementById('href').href;
+                                var interval = setInterval(function() {
+                                    var time = --wait.innerHTML;
+                                    if (time <= 0) {
+                                        location.href = href;
+                                        clearInterval(interval);
+                                    };
+                                }, 1000);
+                            }
+                            });
+                        <?php }else{?>
+                        var er = err + '页面自动跳转中...'; layer.alert(er, {
+                            icon: 2,
+                            title: err,
+                            success: function(layer) {
+                                var wait = document.getElementById('wait'),
+                                    href = document.getElementById('href').href;
+                                var interval = setInterval(function() {
+                                    var time = --wait.innerHTML;
+                                    if (time <= 0) {
+                                        location.href = href;
+                                        clearInterval(interval);
+                                    };
+                                }, 1000);
+                            }
+                        });
+                        <?php }?>
+                    })
+        </script>
+    </body>
+    </html>

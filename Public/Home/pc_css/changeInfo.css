@@ -1,0 +1,111 @@
+.changeInfo_tab_con{
+    width: 60%;
+    height: 60%;
+    margin: 0 auto;
+    padding-top: 10%;
+    cursor: pointer;
+}
+.ci_list{
+    /*width: 100%;*/
+    height: 60px;
+    line-height: 60px;
+    padding-left: 15%;
+    font-size: 18px;
+}
+.ci_title{
+    display: inline-block;
+    width: 15%;
+}
+.ci_con{
+    color: #575757;
+}
+.modify{
+    margin-left: 10%;
+    width: 65px;
+    height: 30px;
+    border: 1px solid #399627;
+    color: #399627;
+    font-size: 14px;
+    border-radius: 10px;
+    background: none;
+}
+
+.modify_tel_container{
+    position: fixed;
+    top:-100%;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+.modify_tel{
+    width: 35%;
+    height: 35%;
+    background: white;
+    border-radius: 2%;
+}
+.mt_title{
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    padding-top: 2%;
+}
+.mt_list{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin-top: 1%;
+}
+.mt_list >div{
+    width: 100%;
+}
+.mt_name{
+    display: inline-block;
+    width: 15%;
+    padding-left: 8%;
+}
+.mt_list input{
+    width: 65%;
+    height: 40px;
+    padding-left: 1.5%;
+    font-size: 18px;
+}
+.y_code{
+    width: 35% !important;
+}
+.getMessage{
+    width: 25%;
+    height: 42px;
+    margin-left: 4.5%;
+    border: 1px solid #399627;
+    color: #399627;
+    font-size: 16px;
+    border-radius: 10px;
+    background: none;
+}
+.confirm_btn{
+    display: block;
+    width: 50%;
+    height: 42px;
+    border: 1px solid #399627;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 10px;
+    background: #399627;
+    margin: 7% auto 0;
+}
+
+
+
+
+
+
+

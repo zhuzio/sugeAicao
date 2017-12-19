@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>公告列表</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<style type="text/css">
+    .a_head_box{
+        width: 100%;
+        height: .8rem;
+        background-color: white;
+    }
+    .a_head_box >div{
+        width: 33.3333333%;
+        height: 100%;
+        float: left;
+    }
+    .a_head_back >a{
+        display: block;
+        width: .3rem;
+        height: .4rem;
+        margin-top: .2rem;
+        margin-left: .2rem;
+        background: url("../../../../Public/Home/image/1-return.png") no-repeat center;
+        background-size: .2rem 100%;
+    }
+    .a_head_title{
+        text-align: center;
+        line-height: .8rem;
+        font-size: .3rem;
+    }
+    .notice_con{
+        width: 100%;
+        height: auto;
+        margin-top: .2rem;
+    }
+    .notice_list{
+        width: 94%;
+        height: auto;
+        background-color: white;
+        margin-bottom: .2rem;
+        padding: .15rem 3% .15rem;
+    }
+    .notice_txt{
+        font-size: .28rem;
+        font-weight: 500;
+        text-indent: 1em;
+        line-height: .4rem;
+    }
+    .notice_time{
+        width: 97%;
+        font-size: .23rem;
+        color: #a7a7a7;
+        text-align: right;
+        padding-right: 3%;
+        padding-top: .15rem;
+    }
+</style>
+<body>
+<div class="notice_container">
+    <div class="a_head_box">
+        <div class="a_head_back">
+            <!--<a href="javascript:window.history.back()"></a>-->
+        </div>
+        <div class="a_head_title">公告列表</div>
+        <div class="a_head_msg">
+
+        </div>
+    </div>
+    <div class="notice_con">
+        <foreach name="notice_list" item="list">
+        <div class="notice_list">
+            <h3 class="notice_txt"><{$list.content}></h3>
+            <p class="notice_time"><{$list.add_time}></p>
+        </div>
+       </foreach>
+    </div>
+    <include file="Tpl/Home/wap/bottom.html"/>
+</div>
+</body>
+<script>
+    $(".notices img").attr("src","__HOME_IMAGES__/2_selectmessage.png");
+    $(".notices p").css("color","#fd5b0c");
+    $(document).ready(function() {
+    $.ajax({
+        url: '__MODULE__/Index/browseAdd',
+        type: 'get',
+        success: function(data) {
+            console.log(data);
+        },
+        error: function() {
+            console.log('请求失败');
+        }
+    })
+})
+</script>
+</html>

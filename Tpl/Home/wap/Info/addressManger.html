@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>收货地址管理</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/addressManger.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="address_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="__MODULE__/Info/my_center"></a>
+            </div>
+            <div class="a_head_title">收货地址管理</div>
+            <div class="a_head_msg">
+                <p class="edit_con">编辑</p>
+                <input type="checkbox" class="edit">
+            </div>
+        </div>
+        <div class="ad_container">
+            <volist name="address" id="v">
+                <div class="each_ad">
+                    <div class="ad_left">
+                        <p class="u_info"><span class="u_name"><{$v.s_consignee}></span><span class="u_tel"><{$v.s_phone}></span></p>
+                        <p class="u_ads">
+                            <if condition="$v.status eq 1"><span class="def def_on">[默认]</span></if><span class="ad_det"><{$v.s_addr}></span></p>
+                    </div>
+                    <div class="ad_right">
+                        <div class="delete" data-id="<{$v.id}>"></div>
+                        <div class="set_def" data-id="<{$v.id}>">
+                            设为默认
+                        </div>
+                    </div>
+                </div>
+            </volist>
+        </div>
+        <div class="addAddress"><a href="__MODULE__/Info/addAddress">添加收货地址</a></div>
+    </div>
+</body>
+<script>
+//编辑
+$(".edit").click(function() {
+    var ck = $(this).is(":checked");
+    if (ck) {
+        $(".edit_con").html("完成");
+        $(".set_def").stop().animate({
+            right: "0"
+        }, 300);
+    } else {
+        $(".edit_con").html("编辑");
+        $(".set_def").stop().animate({
+            right: "-100%"
+        }, 300);
+    }
+});
+
+$(".set_def").click(function() {
+    var id = $(this).attr("data-id");
+    console.log(id);
+    $.ajax({
+        url: '__MODULE__/Info/changeAddressStatus',
+        data: { id: id },
+        type: 'get',
+        success: function(data) {
+            if (data.code == 1) {
+                layer.msg('修改成功！', {
+                    icon: 1,
+                    time: 1500,
+                });
+                window.location.reload();
+            } else {
+                layer.msg('修改失败！请检查网络！', {
+                    icon: 1,
+                    time: 1500,
+                });
+            }
+        },
+        error: function() {
+            alert('请求失败')
+        }
+    })
+})
+
+
+
+//删除
+$(".delete").click(function() {
+    var that = $(this)
+    var id = $(this).attr("data-id");
+    if (confirm('确定要删除？')) {
+        $.ajax({
+            url: '__MODULE__/Info/delAddress',
+            data: { id: id },
+            type: 'get',
+            success: function(data) {
+                console.log(data);
+                console.log(that);
+                if (data['code'] == '1') {
+                    that.parents(".each_ad").remove();
+                } else{
+                    alert('删除失败！');
+                }
+            },
+            error: function() {
+                alert('请求失败')
+            }
+        })
+    }
+})
+var link = '<{$address_link}>';
+window.addEventListener("popstate", function(e) {
+    window.location = link;
+}, false);
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: link
+    };
+    window.history.pushState(state, "title", link);
+}
+pushHistory();
+</script>
+
+</html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>待审核订单</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/checkList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="check_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="javascript:window.history.back()"></a>
+            </div>
+            <div class="a_head_title">待审核订单</div>
+            <div class="a_head_msg"></div>
+        </div>
+        <div class="c_container">
+            <foreach name="purchase_list" item="list">
+                <div class="each_c">
+                    <div class="c_list"><span class="c_title">申请人帐号</span><span class="c_con"><{$list.t_account}></span></div>
+                    <div class="c_list"><span class="c_title">推荐人帐号</span><span class="c_con"><{$list.t_recommend}></span></div>
+                    <div class="c_list"><span class="c_title">产品名称</span><span class="c_con"><{$list.p_name}></span></div>
+                    <if condition="$list['p_name'] eq 真艾宝">
+                    <div class="c_list"><span class="c_title">提货数量</span><span class="c_con"><{$list.t_amount}> 盒</span></div>
+                    <elseif condition="$list['p_name'] eq 艾草精油"/>
+                    <div class="c_list"><span class="c_title">提货数量</span><span class="c_con"><{$list['t_amount']/5}> 组</span></div>
+                    <else />
+                    <div class="c_list"><span class="c_title">提货数量</span><span class="c_con"><{$list['t_amount']/5}> 组</span></div>
+                </if>
+                    <div class="c_list"><span class="c_title">联系电话</span><span class="c_con"><{$list.t_phone}></span></div>
+                    <div class="c_list"><span class="c_title">收货地址</span><span class="c_con"><{$list.s_addr}></span></div>
+                    <div class="c_list"><span class="c_title">申请时间</span><span class="c_con"><{$list.t_time|date='Y-m-d H:i:s',###}></span></div>
+                    <div class="choice_con">
+                        <button class="agree" id="agree_<{$list.id}>" onclick="pass(this,<{$list.id}>)">同意</button>
+                        <button class="refuse" id="refuse_<{$list.id}>" onclick="refuse(this,<{$list.id}>)">拒绝</button>
+                    </div>
+                </div>
+            </foreach>
+            <div class="pages" style="padding-top: .25rem">
+                <{$page}>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+//同意
+function pass($obj,$id) {
+    var id = $id;
+    $.ajax({
+        url: "__MODULE__/Myuser/passApplication",
+        type: "POST",
+        dataType: "json",
+        data: { id: id },
+        success: function(e) {
+            if (e.code == 1) {
+                $('#agree_' + id).parent().parent().remove();
+                layer.msg('已处理',{
+                    icon: 1,
+                    time: 1200,
+                });
+            } else {
+                layer.msg('处理失败请与平台联系',{
+                    icon: 2,
+                    time: 1500,
+                });
+            }
+        }
+    });
+}
+//拒绝
+function refuse($obj, $id) {
+    var id = $id;
+    $.ajax({
+        url: "__MODULE__/Myuser/refuseApplication",
+        type: "POST",
+        dataType: "json",
+        data: { id: id },
+        success: function(e) {
+            if(e.code == 1){
+                $('#refuse_' + id).parent().parent().remove();
+            layer.msg('已处理',{
+                icon: 1,
+                time: 1200,
+            });
+        }else{
+            layer.msg('处理失败请与平台联系',{
+                    icon: 2,
+                    time: 1500,
+                });
+        }
+        }
+    });
+}
+</script>
+
+</html>

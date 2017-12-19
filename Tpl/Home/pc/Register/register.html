@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>注册</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/login.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="login_container">
+        <div class="rgf_title"></div>
+        <div class="rg_form">
+            <form action="__MODULE__/Register/registerAction" method="post" onsubmit="return checkss()">
+                <div class="fl">
+                    <div class="rg_list"><span class="rg_title">登录账号</span>
+                        <input type="text" class="u_count" placeholder="6位，以字母开头，后面为数字和字母" name="account" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">真实姓名</span>
+                        <input type="text" class="u_name" placeholder="请输入您的真实姓名" name="name" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">身份证号</span>
+                        <input type="number" class="u_ID" placeholder="请输入18位身份证号" name="id_number" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">手机号码</span>
+                        <input type="number" class="u_tel" placeholder="请输入11位手机号码" name="phone" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">验&nbsp;&nbsp;证&nbsp;&nbsp;码</span>
+                        <input type="number" class="y_code" placeholder="输入验证码" name="code" required>
+                        <div class="getMessage">点击获取验证码</div>
+                    </div>
+                </div>
+                <div class="fl">
+                    <div class="rg_list"><span class="rg_title">收货地址</span>
+                        <input type="text" placeholder="请输入默认收货地址" name="address" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+                        <input type="password" class="u_psd" placeholder="数字或字母，至少16位" name="pass" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">确认密码</span>
+                        <input type="password" class="u_spsd" placeholder="再次输入密码" name="pass2" required>
+                    </div>
+                    <div class="rg_list"><span class="rg_title">推&nbsp;&nbsp;荐&nbsp;&nbsp;人</span>
+                        <input type="text" class="u_rcdr" value="<{$name}>" readonly onfocus="this.blur()">
+                        <input type="hidden" name="recommend_account" value="<{$account}>">
+                    </div>
+                    <button type="submit" class="rg_submit">提交审核</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    var z_name=/^[a-zA-Z][a-zA-Z0-9]{5}$/;
+    $(".u_count").blur(function () {
+        if (z_name.test($(this).val()) == false){
+            layer.msg('您的账户名格式错误!', {
+                icon: 2,
+                time: 1500,
+            });
+            return false;
+        }
+        var u_account = $(this).val();
+        $.ajax({
+            url: "__MODULE__/Register/is_account_exist",
+            type: "post",
+            dataType: 'json',
+            data: { account: u_account },
+            success: function(e) {
+                if (e.code == 1) {
+                    layer.msg('帐号已存在!', {
+                        icon: 2,
+                        time: 2000,
+                    });
+                    return false;
+                }
+            },
+            error: function(e) {
+                console.log(e)
+            }
+        });
+    });
+$(".login_container").css("height", $(window).height());
+var z_tel = /^1[3|4|5|8][0-9]\d{4,8}$/;
+
+var z_idnumber = /^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+$('.rg_submit').click(function() {
+    var carer_tel = $(".u_tel").val();
+    var id_number = $(".u_ID").val();
+    if (carer_tel != '' && z_tel.test(carer_tel) == false) {
+        layer.msg('电话号码格式错误!', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    if (id_number != '' && z_idnumber.test(id_number) == false) {
+        layer.msg('身份证号格式错误!', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+})
+var $bool = true;
+//短信验证请求
+$(".getMessage").click(function() {
+    var carer_tel = $(".u_tel").val();
+    var u_count = $(".u_count").val();
+    var u_idnumber = $(".u_ID").val();
+    if (carer_tel == "") {
+        layer.msg('请输入电话号码!!!', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else if (z_tel.test(carer_tel) == false) {
+        layer.msg('电话号码格式错误!!!', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else {
+        if ($bool) {
+            $bool = false;
+            $(".getMessage").css({
+                borderColor: "#999",
+                color: "#999"
+            });
+
+            //请求发短信
+            $.ajax({
+                url: "__MODULE__/Register/sendSmsCode",
+                type: "post",
+                dataType: 'json',
+                data: { phone: carer_tel },
+                success: function(e) {
+                    if (e.code == 1) {
+                        layer.msg('发送成功', {
+                            icon: 1,
+                            time: 1200,
+                        });
+                        var num = 120,
+                            timer = setInterval(function() {
+                                num--;
+                                if (num == 0) {
+                                    clearInterval(timer);
+                                    $(".getMessage").html("点击获取验证码").css({
+                                        borderColor: "#399627",
+                                        color: "#399627"
+                                    });
+                                    $bool = true;
+                                } else {
+                                    $(".getMessage").text(num + "秒后重发");
+                                }
+                            }, 1000);
+                    } else {
+                        layer.msg(e.msg, {
+                            icon: 2,
+                            time: 1500,
+                        });
+                        $(".getMessage").html("点击获取验证码").css({
+                            borderColor: "#399627",
+                            color: "#399627"
+                        });
+                        $bool = true;
+                    }
+
+                },
+                error: function(e) {
+                    console.log(e)
+                }
+            });
+
+        }
+    }
+});
+
+function checkss() {
+    if (6 > $(".u_psd").val().length) {
+        layer.msg('密码位数太少', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else if ($(".u_psd").val().length >= 16) {
+        layer.msg('超过设定密码长度16位', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else if ($(".u_psd").val() != $(".u_spsd").val()) {
+        layer.msg('两次密码不一致', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+}
+</script>
+
+</html>

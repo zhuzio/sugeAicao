@@ -1,0 +1,33 @@
+<footer>
+    <div class="footer_list index"><a href="__MODULE__/Index/index">
+        <img src="__HOME_IMAGES__/1_noselectindex.png" >
+        <p>首页</p>
+    </a></div>
+    <div class="footer_list notices"><a href="__MODULE__/Info/notice">
+        <img src="__HOME_IMAGES__/2_noselectmessage.png" id="notice">
+        <p>公告</p>
+    </a></div>
+    <div class="footer_list my_cneter"><a href="__MODULE__/Info/my_center">
+        <img src="__HOME_IMAGES__/3_noselectmy.png" alt="">
+        <p>我的</p>
+    </a></div>
+</footer>
+<script type="text/javascript">
+$(document).ready(function() {
+    $.ajax({
+        url: '__MODULE__/Index/isBrowse',
+        type: 'get',
+        success: function(data) {
+            if (data.code == 1) {
+                $('#notice').attr("src", "__HOME_IMAGES__/2_message.png");
+            } else {
+                console.log(data);
+            }
+        },
+        error: function() {
+            console.log('请求失败');
+        }
+    })
+})
+
+</script>

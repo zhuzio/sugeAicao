@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>意见反馈</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/feedBack.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+<div class="sys_top"><include file="Tpl/Home/pc/top.html"/></div>
+<div class="center">
+    <!--左边-->
+    <div class="sys_left"><include file="Tpl/Home/pc/left.html"/></div>
+    <!--中心-->
+    <div class="sys_container">
+        <div class="feedBack_container">
+            <p class="fd_title">意见反馈</p>
+            <div class="fd_con">
+                <div class="fd_l fl">
+                    <span>您的意见或建议</span>
+                </div>
+                <div class="fd_r fl">
+                    <textarea name="opinion" id="" class="feed_txt">请输入您的意见或建议，我们会认真聆听</textarea>
+                </div>
+                <div class="fd_b fl">
+                    <button class="fb_btn">提交建议</button>
+                </div>
+            </div>
+            <div class="service">
+                <p class="fd_title">客服电话</p>
+                <p class="service_tel">400-6203-777</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".center").css("height", ($(window).height()-60));
+    $(".left_container li:nth-child(8)").addClass("li_on").find("a").css("color","#751d1c");
+    $(".feed_txt").focus(function() {
+        if ($(this).val() == "请输入您的意见或建议，我们会认真聆听") {
+            $(this).val("").css("color", "#000");
+        }
+    });
+    $(".feed_txt").blur(function () {
+        if (!$(this).val()) {
+            $(this).val("请输入您的意见或建议，我们会认真聆听");
+        }
+    })
+    $(".fb_btn").click(function() {
+        console.log($(".feed_txt").val())
+        if ($(".feed_txt").val() == "请输入您的意见或建议，我们会认真聆听" || !$(".feed_txt").val()) {
+            layer.msg('意见不能为空!', {
+                icon: 2,
+                time: 1500,
+            });
+            return false;
+        } else {
+            var opinion = $(".feed_txt").val();
+            $.ajax({
+                url: "__MODULE__/Info/feedBackAction",
+                dataType: "json",
+                type: "post",
+                data: { opinion: opinion },
+                success: function(e) {
+                    if (e.code == 1) {
+                        layer.msg('反馈成功', {
+                            icon: 1,
+                            time: 1200,
+                        });
+                        window.location.href='__MODULE__/Info/feedBack'
+                    } else {
+                        layer.msg(e.msg, {
+                            icon: 2,
+                            time: 1500,
+                        });
+                    }
+                },
+                error: function(e) {
+
+                }
+            })
+        }
+    })
+</script>
+</html>

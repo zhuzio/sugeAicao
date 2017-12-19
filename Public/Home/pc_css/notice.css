@@ -1,0 +1,44 @@
+.notice_container{
+    width: 100%;
+    background: url("../pc_image/big_bg.png") no-repeat center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notice{
+    width: 80%;
+    height: 90%;
+    overflow-y: scroll;
+}
+.notice_list{
+    width:90%;
+    height: auto;
+    padding: 15px;
+    margin: 0 auto 30px;
+    font-size: 18px;
+    box-shadow: 15px 15px 5px #b0b0b0;;
+    transform:skew(-15deg);
+    cursor: pointer;
+    background: white;
+    border-top: 1px solid #ccc;
+}
+.notice_con{
+    text-align: right;
+    padding-right: 30px;
+}
+.notice_list:hover{
+    box-shadow: 1px 1px 1px #888888;;
+    transform:skew(0);
+}
+
+
+
+
+
+
+
+
+
+
+

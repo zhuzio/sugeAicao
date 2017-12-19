@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>经销商管理系统</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/index.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <!---->
+</head>
+
+<body>
+    <!--显示内容区-->
+    <div class="container">
+        <!--推荐人联合创始人-->
+        <p class="my_recommender">推荐人：<span><{$recommend_info.name}></span>联合创始人：<span><{$lc_info.name}></span></p>
+        <!--用户头像和用户名称及职位-->
+        <div class="user_logo">
+            <div class="u_logo">
+                <img src="" alt="">
+            </div>
+            <p class="name_position"><span class="name"><{$memberInfo.account}></span>
+                <if condition="$memberInfo['is_lc'] eq 1">
+                    (<span class="position">联合创始人</span>)
+                    <else /> (
+                    <span class="position">总代理</span>)
+                </if>
+            </p>
+        </div>
+        <!--团队总人数 团队业绩 账户余额 -->
+        <div class="team_container">
+            <!--团队总人数-->
+            <div class="t_list">
+                <p class="t_title">团队人数（人）</p>
+                <h2 class="t_con"><span><{$tdrs}></span></h2>
+            </div>
+            <!--团队业绩-->
+            <div class="t_list">
+                <p class="t_title">团队业绩（盒）</p>
+                <h2 class="t_con"><span><{$tdyj}></span></h2>
+            </div>
+            <!--账户余额-->
+            <div class="t_list">
+                <p class="t_title">账户余额（元）</p>
+                <h2 class="t_con"><span class="money"><{$memberInfo.balance}></span></h2>
+            </div>
+        </div>
+        <!--团队管理-->
+        <div class="team_manger_container">
+            <p class="t_m_title">团队管理</p>
+            <div class="t_m_con">
+                <div class="t_m_list1"><a href="__MODULE__/Register/shareLink">
+                    <img src="__HOME_IMAGES__/1_please.png" alt="邀请代理">
+                    <p>邀请代理</p></a>
+                </div>
+                <div class="t_m_list2"><a href="__MODULE__/Myuser/recommendList">
+                    <img src="__HOME_IMAGES__/2_please_body.png" alt="我的邀请">
+                    <p>我的邀请</p></a>
+                </div>
+                <div class="t_m_list3"><a href="__MODULE__/Myuser/teamList">
+                    <img src="__HOME_IMAGES__/3_please_intenet.png" alt="邀请关系网">
+                    <p>邀请关系网</p></a>
+                </div>
+                <if condition="$memberInfo['is_lc'] == 1">
+                <div class="t_m_list4"><a href="__MODULE__/Myuser/checkList">
+                    <img src="__HOME_IMAGES__/8_agency_audit.png" alt="代理审核">
+                    <p>代理审核</p></a>
+                </div>
+            </if>
+            </div>
+        </div>
+        <!--提货管理/财务明细-->
+        <div class="team_manger_container abc">
+            <p class="t_m_title">提货管理/财务明细</p>
+            <div class="t_m_con">
+                <if condition="$memberInfo['is_lc'] == 0">
+                    <div class="t_m_list9"><a href="__MODULE__/Info/tiHuo">
+                    <img src="__HOME_IMAGES__/4-purchase.png" alt="我要进货">
+                    <p>我要进货</p></a>
+                    </div>
+                    <else />
+                    <div class="t_m_list5"><a href="__MODULE__/Myuser/purchaseApplication">
+                    <img src="__HOME_IMAGES__/9_audit_order.png" alt="待审核订单">
+                    <p>待审核订单</p></a>
+                    </div>
+                </if>
+                <div class="t_m_list6"><a href="__MODULE__/Info/tiHuoRecord">
+                    <img src="__HOME_IMAGES__/5-order.png" alt="我的订单">
+                    <p>我的订单</p></a>
+                </div>
+                <div class="t_m_list7"><a href="__MODULE__/Info/dividendRecord">
+                    <img src="__HOME_IMAGES__/6-detailed.png" alt="财务明细">
+                    <p>财务明细</p></a>
+                </div>
+                <div class="t_m_list8"><a href="__MODULE__/Info/withdrawRecord">
+                    <img src="__HOME_IMAGES__/7-withdrawals.png" alt="提现记录">
+                    <p>提现记录</p></a>
+                </div>
+            </div>
+        </div>
+        <include file="Tpl/Home/wap/bottom.html" />
+    </div>
+</body>
+<script>
+var high = window.screen.availHeight;
+$(".container").css("height", high);
+
+if ($(".position").html() == "联合创始人") {
+    $(".u_logo >img").attr("src", "__HOME_IMAGES__/head_lc.png")
+} else if ($(".position").html() == "总代理") {
+    $(".u_logo >img").attr("src", "__HOME_IMAGES__/head_zd.png")
+}
+$(".index img").attr("src", "__HOME_IMAGES__/1_selectindex.png");
+$(".index p").css("color", "#fd5b0c");
+
+
+
+//强制更改地址栏
+var link = '<{$f_link}>';
+window.addEventListener("popstate", function(e) {
+    window.location = link;
+}, false);
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: link
+    };
+    window.history.pushState(state, "title", link);
+}
+pushHistory();
+</script>
+
+</html>

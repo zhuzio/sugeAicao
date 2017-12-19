@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>分享链接</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+<style type="text/css">
+    .share_container{
+        width: 80%;
+        height: 60%;
+        margin: 10% auto;
+        border: 1px solid #ccc;
+        /*background-color: navajowhite;*/
+    }
+    .share_title{
+        width: 100%;
+        height: 50px;
+        background-color: #f5f5f5;
+        font-size: 18px;
+        text-indent: 2em;
+        line-height: 50px;
+    }
+    .share_box{
+        width: 80%;
+        height: 70%;
+        overflow: hidden;
+        margin: 3% auto 0;
+        /*background-color: cadetblue;*/
+    }
+    .share_box >div{
+        width: 40%;
+        height: 100%;
+        margin: 0 5%;
+    }
+    .share_box >div >p{
+        font-size: 18px;
+    }
+    .share_img >img{
+        display: block;
+        width: 220px;
+        height: 220px;
+        /*background-color: red;*/
+        margin:  10% auto 0;
+    }
+    .share_link >textarea{
+        display: block;
+        text-align: center;
+        width: 70%;
+        height: 150px;
+        margin: 10% auto 0;
+        outline: none;
+        font-family: Arial;
+        font-size: 18px;
+        padding: 10px;
+        resize: none;
+    }
+    .copy{
+        display: block;
+        width: 40%;
+        height: 12%;
+        margin: 5% auto 0;
+        font-size: 18px;
+        color: #399627;
+        border: 1px solid #399627;
+        border-radius: 5px;
+        background: none;
+    }
+</style>
+
+<body>
+<div class="sys_top"><include file="Tpl/Home/pc/top.html"/></div>
+<div class="center">
+    <!--左边-->
+    <div class="sys_left"><include file="Tpl/Home/pc/left.html"/></div>
+    <!--中心-->
+    <div class="sys_container">
+        <div class="share_container">
+            <p class="share_title">推荐好友</p>
+            <div class="share_box">
+                <div class="share_img fl">
+                    <p>二维码扫描</p>
+                    <img src="<{$file_name}>" alt="">
+                </div>
+                <div class="share_link fr">
+                    <p>复制链接</p>
+                    <textarea name="" id="link" readonly> <{$link}></textarea>
+                    <button class="copy">一键复制</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".center").css("height", ($(window).height()-60));
+    $(".left_container li:nth-child(4)").addClass("li_on").find("a").css("color","#751d1c");
+    function copyUrl() {
+        var Url = document.getElementById("link");
+        Url.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        layer.msg('复制成功', {
+            icon: 1,
+            time: 2000,
+        });
+    }
+    $(".copy").click(function() {
+        copyUrl();
+    })
+</script>
+</html>

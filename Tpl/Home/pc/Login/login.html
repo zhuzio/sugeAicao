@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>登录</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/login.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+<body>
+<div class="login_container">
+    <div class="lg_title"></div>
+    <div class="login_form">
+        <form action="__CONTROLLER__/loginAct" class="layui-form" method="post" id="form">
+            <div class="lg_list">
+                <div><span class="lg_form_title">账号</span><input type="text" placeholder="请输入用户名" required="required"  name='account'></div>
+            </div>
+            <div class="lg_list">
+                <div><span class="lg_form_title">密码</span><input type="password" placeholder="请输入密码" required="required" name="pass"></div>
+            </div>
+            <button type="submit" class="lg_btn">登录</button>
+            <p class="fp"><a href="__MODULE__/Login/forgetPassword">忘记密码？立即找回</a></p>
+        </form>
+    </div>
+</div>
+</body>
+ <script src="__PUBLIC__/Admin/lib/layui/src/layui.js"></script>
+<script>
+    $(".login_container").css("height", $(window).height());
+    layui.use(['layer', 'form'], function () {
+            var layer = layui.layer,
+                $ = layui.jquery,
+                form = layui.form();
+            form.verify({
+                account: function (value) {
+                    var preg=/^[a-zA-Z][a-zA-Z0-9]{5}$/;
+                    var str=value;
+                    if (value == '') {
+                        return '请输入用户名！';
+                    }else if(!str.match(preg)){
+                        return "请正确输入账号！";
+                    }
+                },
+                password: function (value) {
+                    var preg=/^\w{4,15}$/;
+                    if (value === '') {
+                        return '请输入密码';
+                    }else if(!value.match(preg)){
+                        return "请输入数字字母下划线4-15位的密码";
+                    }
+                }
+            })
+            });
+</script>
+</html>

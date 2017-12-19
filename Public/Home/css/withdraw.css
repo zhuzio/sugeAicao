@@ -1,0 +1,86 @@
+.a_head_box{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+}
+.a_head_box >div{
+    width: 33.3333333%;
+    height: 100%;
+    float: left;
+}
+.a_head_back >a{
+    display: block;
+    width: .3rem;
+    height: .4rem;
+    margin-top: .2rem;
+    margin-left: .2rem;
+    background: url("../image/1-return.png") no-repeat center;
+    background-size: .2rem 100%;
+}
+.a_head_title{
+    text-align: center;
+    line-height: .8rem;
+    font-size: .3rem;
+}
+.withdraw_container{
+    width: 100%;
+    height: auto;
+}
+.withdraw_container >p{
+    font-size: .25rem;
+    padding: .2rem;
+    color: #7a7a7a;
+}
+.w_container{
+    width: 94%;
+    margin: 0 auto;
+    height: auto;
+    background-color: white;
+}
+.w_container >p,
+.w_title{
+    font-size: .28rem;
+    color: #999;
+    padding: .2rem ;
+}
+.w_title{
+
+}
+.withdraw_money >h2{
+    border-bottom: 1px solid #b6b6b6;
+    width: 90%;
+    margin:  0 auto;
+    padding:0 0 .1rem .15rem;
+    font-size: .35rem;
+}
+.w_money{
+    border: none;
+    font-size: .32rem;
+    font-weight: bolder;
+    padding-left: .15rem;
+}
+.withdraw_btn{
+    margin: .3rem auto 0;
+    width: 94%;
+    display: block;
+    height: .8rem;
+    border-radius: .15rem;
+    background-color: #fd6500;
+    border: none;
+    outline: none;
+    font-size: .27rem;
+    color: white;
+}
+.w_fu{
+    font-size: .26rem;
+    color: #999;
+    margin:0 auto;
+    padding: .2rem;
+    text-align: center;
+}
+.brandCard{
+    font-size: .28rem;
+    width: 70%;
+    border: none;
+}
+

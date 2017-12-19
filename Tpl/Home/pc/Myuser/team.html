@@ -1,0 +1,51 @@
+<include file="Public/Admin/Common/Meta.html" />
+<title>我的团队</title>
+<link rel="stylesheet" href="__PUBLIC__/Admin/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css"/>
+</head>
+
+<body>
+    <div class="zTreeDemoBackground ">
+        <ul id="treeDemo" class="ztree"></ul>
+    </div>
+    
+</body>
+<include file="Public/Admin/Common/Footer.html" />
+<script type="text/javascript" src="__PUBLIC__/Admin/lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
+<script type=text/javascript>
+	
+var setting = { 
+	view: { 
+		showLine: true 
+	}, 
+	data: { 
+		simpleData: { 
+			enable: true 
+		} 
+	} 
+}; 
+
+$(document).ready(function(){
+	$.ajax({
+		type: "post",
+		dataType : "json",
+		global : false,
+		url : "__MODULE__/Myuser/getTree",
+		success : function(data) {
+			if (data.code == 1)
+			{
+				console.log(data);
+				zNodes = data.data;
+				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+			} else {
+				alert(data.msg);
+			}
+			
+			return ;
+		}
+		
+	});
+});
+
+</script>
+
+</html>

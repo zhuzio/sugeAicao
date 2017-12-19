@@ -1,0 +1,82 @@
+<include file="Public/Admin/Common/Meta.html" />
+<!--/meta 作为公共模版分离出去-->
+<title>添加用户 - 艾草代理商管理平台 V 1.0</title>
+<meta name="keywords" content="艾草代理商管理平台 V 1.0">
+<meta name="description" content="艾草代理商管理平台 V 1.0">
+<link rel="stylesheet" href="__PUBLIC__/Admin/lib/layui/src/css/layui.css">
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/sccl.css">
+</head>
+
+<body>
+    <article class="page-container">
+        <form class="form form-horizontal" id="form-member-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$fare.waybill_number}>"  id="waybill_number" name="waybill_number">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+
+                    <input type="hidden" class="input-text" value="<{$fare.id}>" id="fare_id" name="fare_id">
+                    <input type="text" class="input-text" value="<{$fare.fare}>" id="fare" name="fare">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" id="submit" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+        $('#submit').click(function() {
+        var id = $('#fare_id').val() ;
+        var waybill_number = $('#waybill_number').val() ;
+        var fare = $('#fare').val() ;
+        $.ajax({
+            type: 'POST',
+            url: '__CONTROLLER__/fareEditAction',
+            data: {
+                id:id,
+                waybill_number:waybill_number,
+                fare:fare
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.code == 1) {
+                    layer.msg('修改成功！请刷新页面！', { icon: 1, time: 1500 });
+                }else{
+                    layer.msg('修改失败！', { icon: 1, time: 1500 });
+                }
+            },
+            error: function(data) {
+                console.log(data.msg);
+            },
+        });
+    })
+    $(function() {
+        $("#form-member-add").validate({
+            rules: {
+                waybill_number:{
+                    required: true,
+                },
+                fare: {
+                    required: true,
+                },
+            },
+
+        });
+    });
+    </script>
+</body>
+
+</html>

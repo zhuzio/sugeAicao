@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>注册待审核列表</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/checkList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+
+</head>
+<body>
+<div class="sys_top"><include file="Tpl/Home/pc/top.html"/></div>
+<div class="center">
+    <!--左边-->
+    <div class="sys_left"><include file="Tpl/Home/pc/left.html"/></div>
+    <!--中心-->
+    <div class="sys_container">
+        <div class="recommed_container">
+            <div class="rec_tab_title">
+                <div><a href="__MODULE__/Myuser/recommendList">推荐列表</a></div>
+                <div><a href="__MODULE__/Myuser/teamList">我的团队</a></div>
+                <div class="div_on"><a href="__MODULE__/Myuser/checkList">注册待审核列表</a></div>
+                <div><a href="__MODULE__/Myuser/purchaseApplication">提货待审核列表</a></div>
+            </div>
+            <div class="check_tab_con">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                        <th>申请人姓名</th>
+                        <th width="160">申请人帐号</th>
+                        <th>推荐人帐号</th>
+                        <th>联系电话</th>
+                        <th>收货地址</th>
+                        <th>申请时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="check_list" item="list">
+                        <tr>
+                            <td><{$list.name}></td>
+                            <td><{$list.account}></td>
+                            <td><{$list.recommend_account}></td>
+                            <td><{$list.m_phone}></td>
+                            <td><{$list.s_addr}></td>
+                            <td><{$list.reg_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                                <button class="refuse" id="refuse_<{$list.id}>" onclick="refuse1(this,<{$list.id}>)">拒绝</button>
+                                <button class="agree" id="agree_<{$list.id}>" onclick="agree1(this,<{$list.id}>)">同意</button>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".center").css("height", ($(window).height()-60));
+    $(".left_container li:nth-child(5)").addClass("li_on").find("a").css("color","#751d1c");
+    //身份证号码转换
+    /*var ID_num=$("tbody tr td:nth-child(2)");
+    console.log(ID_num);
+    for (var i =0; i<ID_num.length ;i++){
+        console.log($(ID_num[i]).html());
+        $(ID_num[i]).html( ($(ID_num[i]).html()).substr(0,5)+"************"  )
+    }*/
+
+    //同意
+function agree1($obj,$id) {
+    var mid = $id;
+    $.ajax({
+        type: "post",
+        dataType: 'json',
+        url: "__MODULE__/Myuser/registerAgree",
+        data: { id: mid },
+        success: function(e) {
+            if (e.code == 1) {
+                $('#agree_' + $id).parent().parent().remove();
+                layer.msg('已处理', {
+                    icon: 1,
+                    time: 1200,
+                });
+            } else {
+                layer.msg('处理失败请检查网络', {
+                    icon: 2,
+                    time: 1500,
+                });
+            }
+        }
+    });
+}
+//拒绝
+function refuse1($obj,$id) {
+    var mid = $id;
+    $.ajax({
+        url: "__MODULE__/Myuser/registerRefuse",
+        type: "post",
+        dataType: 'json',
+        data: { id: mid },
+        success: function(e) {
+            if (e.code == 1) {
+                $('#refuse_' + $id).parent().parent().remove();
+                layer.msg('已处理', {
+                    icon: 1,
+                    time: 1200,
+                });
+            } else {
+                layer.msg('处理失败请检查网络', {
+                    icon: 2,
+                    time: 1500,
+                });
+            }
+        }
+    });
+}
+</script>
+</html>

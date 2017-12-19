@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>设置新密码</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/login.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<body>
+<div class="login_container">
+    <div class="np_form">
+        <form action="__MODULE__/Login/setNewPsdAction" method="post" onsubmit="return checks()">
+            <div class="np_list"><span class="np_title">新密码</span><input type="password" name='pass' placeholder="数字或字母，至少六位数" class="u_psd" required></div>
+            <div class="np_list"><span class="np_title">确认密码</span><input type="password" name='pass2' placeholder="请再次输入密码" class="u_spsd" required></div>
+            <input type="hidden" class="np_submit" value="<{$id}>" name="id">
+            <input type="submit" class="np_submit" value="完成">
+        </form>
+    </div>
+</div>
+</body>
+<script>
+    var high = window.screen.availHeight;
+    $(".login_container").css("height", high);
+    function checks() {
+        console.log($(".u_psd").length)
+        if (6 > $(".u_psd").val().length){
+            alert("密码位数太少");
+            return false;
+        }else if ($(".u_psd").val().length > 16){
+            alert("密码位数太多");
+            return false;
+        }else if($(".u_psd").val() != $(".u_spsd").val()){
+            alert("两次密码不一致！！！");
+            return false;
+        }
+    }
+</script>
+</html>

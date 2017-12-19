@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>经销商管理系统</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/index.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <!---->
+</head>
+
+<body>
+    <!--显示内容区-->
+    <div class="container">
+        <!--头部滚动消息-->
+        <div class="text_scroll">
+        </div>
+        <!--用户头像及logo商标-->
+        <div class="logo_box">
+            <!--用户缩略图-->
+            <div class="small_user">
+                <img src="__HOME_IMAGES__/head.png" alt="">
+            </div>
+        </div>
+        <!--总销售额-->
+        <div class="title_sales sections">
+            <p>团队业绩</p>
+            <h2><span><{$tdyj}></span>盒</h2>
+        </div>
+        <!--团队总人数-->
+        <div class="team_num sections">
+            <p>团队总人数</p>
+            <h2><span><{$tdrs}></span>人</h2>
+        </div>
+    </div>
+    <!--弹出层-->
+    <div class="info_container">
+        <div class="i_container">
+            <!--用户信息部分-->
+            <div class="i_head">
+                <!--系统消息链接-->
+                <a class="system_message" href="__MODULE__/Info/notice"></a>
+                <!--用户头像-->
+                <img src="__HOME_IMAGES__/head.png" alt="" class="user_head_pto">
+                <!--用户名-->
+                <p class="name_position"><span class="name"><{$memberInfo.account}></span>
+                    <if condition="$memberInfo['is_lc'] eq 1">
+                        (<span class="position">联合创始人</span>)
+                        <else /> (
+                        <span class="position">总代理</span>)
+                    </if>
+                </p>
+                <!--账户余额-->
+                <h2 class="account_money">账户余额：¥ 
+                    <if condition="$memberInfo['balance'] eq ''">
+                         <span>0</span>
+                         <else />
+                    <span><{$memberInfo.balance}></span>
+                </if>
+                </h2>
+            </div>
+            <!--功能列表-->
+            <div class="function_list">
+                <if condition="$memberInfo['is_lc'] eq 0">
+                    <div class="cargo_loans">
+                        <div class="ion_box"><img src="__HOME_IMAGES__/icon1.png" alt="提货申请" class="list_ion"></div>
+                        <div class="list_con">
+                            <p>提货申请</p>
+                            <div class="a_list"></div>
+                        </div>
+                    </div>
+                </if>
+                <div class="apply_cargo">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon2.png" alt="申请提现" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>申请提现</p>
+                        <div class="a_list"></div>
+                    </div>
+                </div>
+                <div class="vip_register">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon3.png" alt="注册会员" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>注册会员</p>
+                        <div class="a_list"></div>
+                    </div>
+                </div>
+                <div class="team_manger ac_li">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon4.png" alt="团队管理" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>团队管理</p>
+                        <div class="a_list">
+                            <p><a href="__MODULE__/Myuser/recommendList">推荐列表</a></p>
+                            <p><a href="__MODULE__/Myuser/teamList">我的团队</a></p>
+                            <if condition="$memberInfo['is_lc'] eq 1">
+                                <p><a href="__MODULE__/Myuser/checkList">注册待审核列表</a></p>
+                                <p><a href="__MODULE__/Myuser/purchaseApplication">提货待审核列表</a></p>
+                            </if>
+                        </div>
+                    </div>
+                </div>
+                <div class="account_manger ac_li">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon5.png" alt="账户管理" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>账户管理</p>
+                        <div class="a_list">
+                            <p><a href="__MODULE__/Info/changePassword">修改密码</a></p>
+                            <p><a href="__MODULE__/Info/addressManger">管理收货地址</a></p>
+                            <p><a href="__MODULE__/Info/changeInfo">修改个人资料</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="finance_det ac_li">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon6.png" alt="财务明细" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>财务明细</p>
+                        <div class="a_list">
+                            <p><a href="__MODULE__/Info/dividendRecord">账户明细</a></p>
+                            <p><a href="__MODULE__/Info/tiHuoRecord">提货记录</a></p>
+                            <p><a href="__MODULE__/Info/withdrawRecord">提现记录</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact_us">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/icon7.png" alt="联系我们" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>联系我们</p>
+                        <div class="a_list"></div>
+                    </div>
+                </div>
+                <div class="quit_login">
+                    <div class="ion_box"><img src="__HOME_IMAGES__/exit.png" alt="退出登录" class="list_ion"></div>
+                    <div class="list_con">
+                        <p>退出登录</p>
+                        <div class="a_list"></div>
+                    </div>
+                </div>
+            </div>
+            <!--底部信息-->
+            <div class="my_recommender">
+                <p>推荐人：<span><{$recommend_info.name}></span></p>
+                <p>联合创始人：<span><{$lc_info.name}></span></p>
+            </div>
+        </div>
+        <div class="i_containers"></div>
+    </div>
+</body>
+<script>
+var high = window.screen.availHeight;
+$(".container").css("height", high);
+
+$(".small_user").click(function() {
+    $(".info_container").animate({
+        left: "0",
+    }, 300);
+    $(".container").css("overflow","none");
+});
+
+$(".i_containers").click(function() {
+    $(".info_container").animate({
+        left: "-100%",
+    }, 300);
+     $(".container").css("overflow","scroll");
+})
+$(".ac_li").click(function() {
+    $(this).toggleClass("a_list_on").siblings(".ac_li").removeClass("a_list_on");
+});
+//申请提货链接
+$(".cargo_loans").click(function() {
+    window.location.href = "__MODULE__/Info/tiHuo";
+});
+//申请提现链接
+$(".apply_cargo").click(function() {
+    window.location.href = "__MODULE__/Info/withdraw";
+
+});
+//注册会员链接
+$(".vip_register").click(function() {
+    window.location.href = "__MODULE__/Register/shareLink";
+});
+//联系我们链接
+$(".contact_us").click(function() {
+    window.location.href = "__MODULE__/Info/feedBack";
+});
+//退出登录点击事件
+$(".quit_login").click(function () {
+    window.location.href = "__MODULE__/Login/loginOut";
+})
+
+
+//强制更改地址栏
+var link = '<{$f_link}>';
+window.addEventListener("popstate", function(e) {
+    window.location = link;
+}, false);
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: link
+    };
+    window.history.pushState(state, "title", link);
+}
+pushHistory();
+</script>
+
+</html>

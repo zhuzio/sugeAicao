@@ -1,0 +1,45 @@
+<div class="top_container">
+    <div class="t_head_info1">
+        <!--用户头像-->
+        <div class="user_head_img">
+            <img src="../../../Public/Home/pc_image/head.png" />
+        </div>
+        <!--用户名用户等级-->
+        <div class="user_head_name">
+            <p class="name_box"><span><{$memberInfo.account}></span>
+                <if condition="$memberInfo['is_lc'] eq 1">
+                    (<span>联合创始人</span>)
+                    <else /> (
+                    <span>总代理</span>)
+                </if>
+            </p>
+        </div>
+        <!--账户余额-->
+        <div class="user_count">
+            <p>账户余额：¥
+                <if condition="$memberInfo['balance'] eq ''">
+                    <span>0</span>
+                    <else />
+                    <span><{$memberInfo.balance}></span>
+                </if>
+            </p>
+        </div>
+    </div>
+    <div class="t_head_info2">
+        <!--推荐人-->
+        <p>推荐人：<span><{$recommend_info.name}></span></p>
+        <p style="margin:0 50px 0 45px">联合创始人：<span><{$lc_info.name}></span></p>
+        <p style="margin:0 50px 0 45px">联合创始人电话：<span><{$lc_info.m_phone}></span></p>
+        <p class="news" style="margin:0 50px 0 45px">消息</p>
+        <!--退出登录-->
+        <button class="quit_login" onclick="loginout()">退出</button>
+    </div>
+    <script type="text/javascript">
+        function loginout(){
+            window.location.href="__MODULE__/Login/loginOut"
+        }
+        $(".news").click(function () {
+            window.location.href="__MODULE__/Info/notice";
+        })
+    </script>
+</div>

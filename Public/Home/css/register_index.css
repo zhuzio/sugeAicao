@@ -1,0 +1,14 @@
+input{
+	width:150px;
+}
+table{
+	width: 500px;
+	margin: 150px auto;
+}
+td{
+	padding: 20px;
+	font-size: 14px;
+}
+body{
+	background-color: #e0e0e0;
+}

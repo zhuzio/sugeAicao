@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>提货申请</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/tiHuo.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="sys_top">
+        <include file="Tpl/Home/pc/top.html" />
+    </div>
+    <div class="center">
+        <!--左边-->
+        <div class="sys_left">
+            <include file="Tpl/Home/pc/left.html" />
+        </div>
+        <!--中心-->
+        <div class="sys_container">
+            <div class="tiHuo_container">
+                <div class="ti_con">
+                    <div class="t_list">
+                        <div><span class="t_title">产品名称</span>
+                            <select name="p_name" id="" class="p_name">
+                                <option value="">请选择产品名称</option>
+                                <foreach name="type_info" item="info">
+                                    <option value="<{$info.id}>">
+                                        <{$info.p_name}>
+                                    </option>
+                                </foreach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="t_list">
+                        <div><span class="t_title">提货数量</span>
+                            <input type="text" placeholder="请输入提货数量" class="p_num">
+                        </div>
+                    </div>
+                    <div class="t_list">
+                        <div><span class="t_title">联系电话</span>
+                            <input type="hidden" value="<{$memberInfo.is_lc}>" id="is_lc">
+                            <input type="number" value="<{$s_phone}>" class="p_tel">
+                        </div>
+                    </div>
+                    <div class="t_list">
+                        <div><span class="t_title">收货地址</span>
+                            <select name="" id="change_addr" class="p_city">
+                                <option value="">请选择收货地址</option>
+                                <foreach name="address_info" item="info">
+                                    <option value="<{$info.id}>" <if condition="$info['status'] eq 1">selected</if>>
+                                        <{$info.s_addr}>
+                                    </option>
+                                </foreach>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="ti_btn">提交申请</button>
+                    <p class="t_tishi">提示：提交申请后到财务明细→提货记录中查看审核进度</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+<script>
+    $(document).ready(function(){
+        var is_lc = $('#is_lc').val();
+        if(is_lc == 1){
+            alert('您没有提货权限！');
+            window.location.href="__MODULE__/Index/index";
+        }
+    });
+    var bool=false;
+    $(".popups_container").animate({
+        top:"0"
+    },1000);
+    if (!bool){
+        var num=10;
+        timer=setInterval(function () {
+            num--;
+            if(num == 0){
+                clearInterval(timer);
+                bool == true ;
+                $(".known").text("我知道啦~");
+                $(".known").click(function () {
+                    $(".popups_container").animate({
+                        top:"-100%"
+                    },300);
+                });
+            }else {
+                $(".known").text(num+"秒后可关闭")
+            }
+        },1000)
+
+    }
+
+
+$('#change_addr').change(function(){
+    var id = $(this).val();
+    $.ajax({
+            url: "__MODULE__/Info/getAddrPhone",
+            dataType: "json",
+            type: "POST",
+            data: { addr_id:id },
+            success: function(data) {
+                if (data.code == 1) {
+                    $('.p_tel').val(data.phone);
+                }
+            },
+            error: function(e) {
+
+            }
+        })
+})
+$(".center").css("height", ($(window).height() - 60));
+$(".left_container li:nth-child(2)").addClass("li_on").find("a").css("color", "#751d1c");
+ var z_tel = /^1[3|5|7|8]\d{9}$/;
+    var z_num = /^\+?[1-9][0-9]*$/;
+  $(".ti_btn").click(function() {
+
+    var p_name = $(".p_name option:selected").text();
+    var p_id = $(".p_name option:selected").val();
+    var p_num = $(".p_num").val();
+    var p_tel = $(".p_tel").val();
+    var p_city = $(".p_city option:selected").text();
+    var p_addr = $(".p_city option:selected").val();
+    //产品名称不能为空
+    if (p_name == "请选择产品") {
+        layer.msg('产品名称不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //产品数量不能为空
+    else if (!p_num) {
+        layer.msg('产品数量不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //产品数量格式错误
+    else if (z_num.test(p_num) == false) {
+        layer.msg('产品数量格式错误', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //电话号码不能为空
+    else if (!p_tel) {
+        layer.msg('电话号码不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //电话号码格式错误
+    else if (z_tel.test(p_tel) == false) {
+        layer.msg('电话号码格式错误', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    // 城市不能为空
+    else if (p_city == "请选择地址") {
+        layer.msg('收货地址不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else {
+        $.ajax({
+            url: "__MODULE__/Info/tiHuoAction",
+            dataType: "json",
+            type: "POST",
+            data: {p_id:p_id,p_num:p_num,p_tel:p_tel,p_addr:p_addr},
+            success: function(data) {
+                    if(data.code == 1){
+                    layer.msg('申请成功', {
+                    icon: 1,
+                    time: 1200,
+                });
+                window.location.href="__MODULE__/Info/tiHuoRecord"
+                }else{
+                    layer.msg('申请失败请联系平台', {
+                    icon: 2,
+                    time: 1200,
+                });
+                }
+            },
+            error: function(e) {
+
+            }
+        })
+    } 
+});
+</script>
+
+</html>

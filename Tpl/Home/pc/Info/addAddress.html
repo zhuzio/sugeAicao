@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>添加收货地址</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/changePassword.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+    <script src="__HOME_LIB__/citySet.js"></script>
+</head>
+
+<body>
+    <div class="sys_top">
+        <include file="Tpl/Home/pc/top.html" />
+    </div>
+    <div class="center">
+        <!--左边-->
+        <div class="sys_left">
+            <include file="Tpl/Home/pc/left.html" />
+        </div>
+        <!--中心-->
+        <div class="sys_container">
+            <div class="recommed_container">
+                <div class="rec_tab_title">
+                    <div><a href="__MODULE__/Info/changePassword">修改密码</a></div>
+                    <div class="div_on"><a href="__MODULE__/Info/addressManger">收货地址管理</a></div>
+                    <div><a href="__MODULE__/Info/changeInfo">修改个人资料</a></div>
+                    <div><a href="__MODULE__/Index/certificate">我的授权证书</a></div>
+
+                </div>
+                <div class="change_tab_con">
+                    <form class="change_box" onsubmit="return submits()" action="__MODULE__/Info/addAddressData" method="post">
+                        <div class="change_list">
+                            <div><span class="change_title">收货人姓名</span>
+                                <input type="text" placeholder="请输入收货人姓名" class="ad_name" required>
+                            </div>
+                        </div>
+                        <div class="change_list">
+                            <div><span class="change_title">收货电话</span>
+                                <input type="number" placeholder="请输入收货电话" class="ad_tel" required>
+                            </div>
+                        </div>
+                        <div class="change_list">
+                            <div><span class="change_title">选择地区</span>
+                                <input type="text" placeholder="请选择地区" readonly id="city">
+                            </div>
+                        </div>
+                        <div class="change_list">
+                            <div><span class="change_title">详细地址</span>
+                                <input type="text" placeholder="请输入详细地址" class="ad_add" required>
+                            </div>
+                        </div>
+                        <div class="change_list">
+                            <div><span class="change_title">设为默认</span>
+                                <input type="checkbox" name="status" value="1" id="set_default">
+                            </div>
+                        </div>
+                        <button class="cl_btn" type="submit">确认增加</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+$(".center").css("height", ($(window).height() - 60));
+$(".left_container li:nth-child(6)").addClass("li_on").find("a").css("color", "#751d1c");
+$("#city").click(function(e) {
+    SelCity(this, e);
+});
+var z_tel = /^1[3|5|7|8]\d{9}$/;
+//插件调用
+function submits() {
+    var ads = $("#city").val();
+    var ad_tel = $(".ad_tel").val();
+    var ad_name = $(".ad_name").val();
+    var ad_add = $(".ad_add").val();
+
+
+    if (!ad_name) {
+        layer.msg("收货人姓名不能为空！！！", {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    if (z_tel.test(ad_tel) == false || !ad_tel) {
+        layer.msg("您的电话格式错误或电话号码不能为空！！！", {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    if (ads == "" || ads == null) {
+        layer.msg("请选择地区！！！", {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+
+    if (!ad_add) {
+        layer.msg("详细地址不能为空！！！", {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+}
+</script>
+
+</html>

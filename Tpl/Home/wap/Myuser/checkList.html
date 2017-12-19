@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>代理审核</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/checkList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+        <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="check_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="__MODULE__/Index/index"></a>
+            </div>
+            <div class="a_head_title">代理审核</div>
+            <div class="a_head_msg"></div>
+        </div>
+        <div class="c_container">
+            <foreach name="check_list" item="list">
+                <div class="each_c">
+                    <div class="c_list"><span class="c_title">申请人姓名</span><span class="c_con"><{$list.name}></span></div>
+                    <div class="c_list"><span class="c_title">申请人帐号</span><span class="c_con"><{$list.account}></span></div>
+                    <div class="c_list"><span class="c_title">推荐人帐号</span><span class="c_con"><{$list.recommend_account}></span></div>
+                    <div class="c_list"><span class="c_title">联系电话</span><span class="c_con"><{$list.m_phone}></span></div>
+                    <div class="c_list"><span class="c_title">收货地址</span><span class="c_con"><{$list.s_addr}></span></div>
+                    <div class="c_list"><span class="c_title">申请时间</span><span class="c_con"><{$list.reg_time|date='Y-m-d H:i:s',###}></span></div>
+                    <div class="choice_con">
+                        <button class="agree" id="agree_<{$list.id}>" onclick="agree1(this,<{$list.id}>)">同意</button>
+                        <button class="refuse" id="refuse_<{$list.id}>" onclick="refuse1(this,<{$list.id}>)">拒绝</button>
+                    </div>
+                </div>
+            </foreach>
+            <div class="pages" style="padding-top: .25rem">
+                <{$page}>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+//同意
+function agree1($obj,$id) {
+    var mid = $id;
+    $.ajax({
+        type: "post",
+        dataType: 'json',
+        url: "__MODULE__/Myuser/registerAgree",
+        data: { id: mid },
+        success: function(e) {
+            if (e.code == 1) {
+                $('#agree_' + $id).parent().parent().remove();
+                layer.msg('已处理', {
+                    icon: 1,
+                    time: 1200,
+                });
+            } else if(e.code == '-2'){
+                layer.msg('您已处理过！', {
+                    icon: 2,
+                    time: 1500,
+                });
+            }else{
+                layer.msg('处理失败请检查网络', {
+                    icon: 2,
+                    time: 1500,
+                });
+            }
+        }
+    });
+}
+//拒绝
+function refuse1($obj,$id) {
+    var mid = $id;
+    $.ajax({
+        url: "__MODULE__/Myuser/registerRefuse",
+        type: "post",
+        dataType: 'json',
+        data: { id: mid },
+        success: function(e) {
+            if (e.code == 1) {
+                $('#refuse_' + $id).parent().parent().remove();
+                layer.msg('已处理', {
+                    icon: 1,
+                    time: 1200,
+                });
+            } else {
+                layer.msg('处理失败请检查网络', {
+                    icon: 2,
+                    time: 1500,
+                });
+            }
+        }
+    });
+}
+</script>
+
+</html>

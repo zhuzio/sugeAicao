@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>苏格五月真艾授权证书防伪查询</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/index.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<style type="text/css">
+	.check_container{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background: white;
+
+		background: url("__HOME_IMAGES__/bg.jpg") center;
+		background-size: cover;
+	}
+	.c_cneter{
+		width: 75%;
+		height: auto;
+		margin: 45% auto 0;
+		/*background: floralwhite;*/
+	}
+	.c_cneter >div{
+		width: 100%;
+		height: .5rem;
+		line-height: .5rem;
+		font-size: .28rem;
+		margin: .1rem 0;
+		/*background: lavender;*/
+	}
+	.c_title{
+		display: inline-block;
+		width: 1.5rem;
+		height: 100%;
+		color: #999;
+	}
+	.c_txt{
+		color: #000000;
+		font-weight: bolder;
+	}
+</style>
+<body>
+<div class="check_container">
+	<div class="c_cneter">
+		<!--姓名-->
+		<div><span class="c_title">姓名</span><span class="c_txt"><{$memberInfo.name}></span></div>
+		<!--帐号-->
+		<div><span class="c_title">帐号</span><span class="c_txt"><{$memberInfo.account}></span></div>
+		<!--角色-->
+		<if condition="$memberInfo['is_lc'] eq 1">
+		<div><span class="c_title">角色</span><span class="c_txt">联合创始人</span></div>
+		<else />
+		<div><span class="c_title">角色</span><span class="c_txt">总代理</span></div>
+	</if>
+		<!--身份号码-->
+		<div><span class="c_title">身份号码</span><span class="c_txt"><{$memberInfo.id_number}></span></div>
+		<!--证书编号-->
+		<div><span class="c_title">证书编号</span><span class="c_txt"><{$certificate_no}></span></div>
+	</div>
+</div>
+</body>
+</html>

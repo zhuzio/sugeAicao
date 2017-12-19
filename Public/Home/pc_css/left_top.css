@@ -1,0 +1,145 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+.sys_top{
+    width: 100%;
+    height: 60px;
+    box-shadow: 0px 1px 20px #bfbfbf;
+    background-color: white;
+    position: fixed;
+    top:0;
+    left: 0;
+}
+.top_container{
+    width: 80%;
+    height: 100%;
+    margin:  0 auto;
+    background-color: white;
+}
+.t_head_info1{
+    float: left;
+    height: 100%;
+    width: auto;
+}
+.user_head_img{
+    width: 60px;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user_head_img >img{
+    display: block;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.user_head_name,.user_count{
+    width: auto;
+    float: left;
+    line-height: 60px;
+}
+.name_box{
+    font-size: 14px;
+}
+.user_count{
+    margin-left: 40px;
+    font-size: 14px;
+}
+.user_count >p >span{
+    color: #399627;
+}
+.t_head_info2{
+    float: right;
+    width: auto;
+    height: 100%;
+    line-height: 60px;
+}
+.t_head_info2 >p{
+    display: inline-block;
+    font-size: 14px;
+}
+.quit_login{
+    width: 50px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: #399627;
+    cursor: pointer;
+}
+.center{
+    margin-top: 60px;
+    width: 100%;
+    background: url("../pc_image/big_bg.png") no-repeat center;
+    background-size: cover;
+
+}
+.news{
+    background:url("../pc_image/public.png") no-repeat center;
+    background-size: 25px auto;
+    color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+}
+
+/*左边区域*/
+.sys_left{
+    width: 12%;
+    height: 100%;
+    float: left;
+}
+.left_container{
+    width: 100%;
+    height: 100%;
+    border-top: 1px rgba(255, 255, 255, 0) solid;
+    box-sizing: border-box;
+}
+.left_container ul{
+    margin-top: 10%;
+    border-right: 1px solid #399627;
+    padding-bottom: 50%;
+}
+.left_container li{
+    width: 100%;
+    height: 65px;
+    line-height: 65px;
+    text-align: center;
+    margin-top: 5%;
+
+}
+.left_container li >a{
+    font-size: 18px;
+    color: #399627;
+}
+.left_container li:hover >a{
+    color: #751d1c;
+}
+
+.left_container li.li_on{
+    background: url("../pc_image/hover.png") no-repeat center;
+    background-size: auto 65px;
+}
+/*右边区域*/
+.sys_container{
+    width: 85%;
+    float: left;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>注册待审核列表</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/checkList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+
+</head>
+<body>
+<div class="sys_top"><include file="Tpl/Home/pc/top.html"/></div>
+<div class="center">
+    <!--左边-->
+    <div class="sys_left"><include file="Tpl/Home/pc/left.html"/></div>
+    <!--中心-->
+    <div class="sys_container">
+        <div class="recommed_container">
+            <div class="rec_tab_title">
+                <div><a href="__MODULE__/Myuser/recommendList">推荐列表</a></div>
+                <div><a href="__MODULE__/Myuser/teamList">我的团队</a></div>
+                <div><a href="__MODULE__/Myuser/checkList">注册待审核列表</a></div>
+                <div class="div_on"><a href="__MODULE__/Myuser/purchaseApplication">提货待审核列表</a></div>
+            </div>
+            <div class="check_tab_con">
+                <table cellpadding="0" cellspacing="0" border="0">
+                    <thead>
+                    <tr>
+                        <th>申请人帐号</th>
+                        <th>推荐人帐号</th>
+                        <th>提货数量</th>
+                        <th>联系电话</th>
+                        <th>收货地址</th>
+                        <th>申请时间</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <foreach name="check_list" item="list">
+                        <tr>
+                            <td><{$list.t_account}></td>
+                            <td><{$list.t_recommend}></td>
+                            <td><{$list.t_amount}></td>
+                            <td><{$list.t_phone}></td>
+                            <td><{$list.s_addr}></td>
+                            <td><{$list.t_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                                <button class="agree" id="agree_<{$list.id}>" onclick="pass(this,<{$list.id}>)">同意</button>
+                                <button class="refuse" id="refuse_<{$list.id}>" onclick="refuse(this,<{$list.id}>)">拒绝</button>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".center").css("height", ($(window).height()-60));
+    $(".left_container li:nth-child(5)").addClass("li_on").find("a").css("color","#751d1c");
+    function pass($obj,$id) {
+        var id = $id;
+        $.ajax({
+            url: "__MODULE__/Myuser/passApplication",
+            type: "POST",
+            dataType: "json",
+            data: { id: id },
+            success: function(e) {
+                if (e.code == 1) {
+                    $('#agree_' + id).parent().parent().remove();
+                    layer.msg('已处理',{
+                        icon: 1,
+                        time: 1200,
+                    });
+                } else {
+                    layer.msg('处理失败请与平台联系',{
+                        icon: 2,
+                        time: 1500,
+                    });
+                }
+            }
+        });
+    }
+    //拒绝
+    function refuse($obj, $id) {
+        var id = $id;
+        $.ajax({
+            url: "__MODULE__/Myuser/refuseApplication",
+            type: "POST",
+            dataType: "json",
+            data: { id: id },
+            success: function(e) {
+                if(e.code == 1){
+                    $('#refuse_' + id).parent().parent().remove();
+                    layer.msg('已处理',{
+                        icon: 1,
+                        time: 1200,
+                    });
+                }else{
+                    layer.msg('处理失败请与平台联系',{
+                        icon: 2,
+                        time: 1500,
+                    });
+                }
+            }
+        });
+    }
+</script>
+</html>

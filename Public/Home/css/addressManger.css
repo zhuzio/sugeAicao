@@ -1,0 +1,138 @@
+.address_container{
+    width: 100%;
+    height: auto;
+}
+.a_head_box{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+}
+.a_head_box >div{
+    width: 33.3333333%;
+    height: 100%;
+    float: left;
+}
+.a_head_back >a{
+    display: block;
+    width: .3rem;
+    height: .4rem;
+    margin-top: .2rem;
+    margin-left: .2rem;
+    background: url("../image/1-return.png") no-repeat center;
+    background-size: .2rem 100%;
+}
+.a_head_title{
+    text-align: center;
+    line-height: .8rem;
+    font-size: .3rem;
+}
+.a_head_msg{
+    position: relative;
+    line-height: .8rem;
+    font-size: .28rem;
+}
+.a_head_msg >p{
+    padding-left: 60%;
+}
+.a_head_msg >input{
+    position: absolute;
+    top:0;
+    left:55%;
+    display: block;
+    width: .8rem;
+    height: .6rem;
+    opacity: 0;
+}
+.ad_container{
+    width: 100%;
+    height: auto;
+    margin-top: .2rem;
+    background-color: white;
+    margin-bottom: 1rem;
+}
+.each_ad{
+    width: 94%;
+    height: 1.2rem;
+    margin:  0 auto;
+    background-color: white;
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+}
+.each_ad >div{
+    float: left;
+    height: 100%;
+}
+.ad_left{
+    width: 85%;
+}
+.u_info{
+    height: .5rem;
+}
+.u_info >span{
+    font-size: .27rem;
+    line-height: .5rem;
+}
+.u_ads{
+    font-size: .25rem;
+}
+.def{
+    color: rgb(253,101,37);
+    padding-right: .15rem;
+    display: none;
+}
+.def_on{
+    display: inline-block;
+}
+.u_tel{
+    padding-left: .2rem;
+}
+.ad_right{
+    width: 15%;
+    height: 100%;
+    position: relative;
+}
+.delete{
+    width: 100%;
+    height: 100%;
+    background: url("../image/close.png") no-repeat 80% center;
+    background-size: .3rem auto;
+}
+.set_def{
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    padding: 10%;
+    top:0;
+    right: -100%;
+    font-size: .27rem;
+    text-align: center;
+    background-color: red;
+    color: white;
+    line-height: .45rem;
+}
+.addAddress{
+    position: fixed;
+    bottom: 0.05rem;
+    left: 0;
+    width: 100%;
+    height: .8rem;
+}
+.addAddress >a{
+    display: block;
+    width: 94% ;
+    height: 100%;
+    margin:  0 auto;
+    background: rgb(253,101,0);
+    text-align: center;
+    line-height: .8rem;
+    font-size: .28rem;
+    color: white;
+    letter-spacing: .1rem;
+    border-radius: .1rem;
+}
+
+
+
+
+
+

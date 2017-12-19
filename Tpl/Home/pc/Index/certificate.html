@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>我的授权证书</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+<style type="text/css">
+	.certificate_container{
+        width: 35%;
+        height: 100%;
+        margin:0 0 0 25% ;
+        /*background: #f0c040;*/
+        position: relative;
+    }
+    .z_container{
+        width: 100%;
+        height: auto;
+    }
+    .download{
+        position: absolute;
+        display: block;
+        right: -120px;
+        bottom: 0;
+        width: 80px;
+        height: 30px;
+        background: #399627;
+        color: white;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+</style>
+<body>
+<div class="sys_top">
+    <include file="Tpl/Home/pc/top.html" />
+</div>
+<div class="center">
+    <!--左边-->
+    <div class="sys_left">
+        <include file="Tpl/Home/pc/left.html" />
+    </div>
+    <!--中心-->
+    <div class="sys_container">
+        <div class="recommed_container">
+            <div class="rec_tab_title">
+                <div><a href="__MODULE__/Info/changePassword">修改密码</a></div>
+                <div><a href="__MODULE__/Info/addressManger">收货地址管理</a></div>
+                <div><a href="__MODULE__/Info/changeInfo">修改个人资料</a></div>
+                <div class="div_on"><a href="__MODULE__/Index/certificate">我的授权证书</a></div>
+            </div>
+            <div class="certificate_container">
+                <div class="z_container">
+                    <img src="<{$filename}>" width="100%" height="100%">
+                </div>
+                    <button onclick="download()" class="download">下载</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+    $(".center").css("height", ($(window).height() - 60));
+    $(".left_container li:nth-child(6)").addClass("li_on").find("a").css("color", "#751d1c");
+	function download(){
+		window.location.href="__MODULE__/Index/certificate/sqzs_download/1"
+	}
+</script>

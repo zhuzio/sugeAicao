@@ -1,0 +1,101 @@
+<include file="Public/Admin/Common/Meta.html" />
+</head>
+
+<body>
+    <article class="cl pd-20">
+        <form action="__MODULE__/Admin/adminPermissionEditAction" method="post" class="form form-horizontal" id="form-admin-role-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限节点名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$info.auth_name}>" id="roleName" name="auth_name" datatype="*4-16" nullmsg="权限节点名不能为空">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>控制器名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$info.auth_c}>" name="auth_c" datatype="*4-16" nullmsg="控制器不能为空" <if condition="$info['auth_pid'] eq 0">readonly</if>>
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>方法名称：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="<{$info.auth_a}>" id="" name="auth_a" datatype="*4-16" nullmsg="方法名不能为空" <if condition="$info['auth_pid'] eq 0">readonly</if>>
+                </div>
+            </div>
+            <div class="row cl">
+                <if condition="$info.auth_pid neq 0">
+                    <label class="form-label col-xs-4 col-sm-3">节点名称：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <dl class="permission-list">
+                            <dd>
+                                <dl class="cl permission-list2">
+                                    <select name="auth_pid" id="" class="select">
+                                        <option value="0">根目录</option>
+                                        <foreach name="authList" item="list">
+                                            <option value="<{$list.auth_id}>" <if condition="$list['auth_id'] eq $auth_id">selected</if>>
+                <{$list.auth_name}>
+                    </option>
+                    </foreach>
+                    </select>
+                    </dl>
+                    </dd>
+                    </dl>
+                    </div>
+                    </if>
+                    <div class="row cl">
+                        <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-5" style="margin-top: 15px;">
+                            <input type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save" value="确认提交"><i class="icon-ok"></i>
+                        </div>
+                    </div>
+            </div>
+        </form>
+    </article>
+    <!--_footer 作为公共模版分离出去-->
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $(".permission-list dt input:checkbox").click(function() {
+            $(this).closest("dl").find("dd input:checkbox").prop("checked", $(this).prop("checked"));
+        });
+        $(".permission-list2 dd input:checkbox").click(function() {
+            var l = $(this).parent().parent().find("input:checked").length;
+            var l2 = $(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+            if ($(this).prop("checked")) {
+                $(this).closest("dl").find("dt input:checkbox").prop("checked", true);
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked", true);
+            } else {
+                if (l == 0) {
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked", false);
+                }
+                if (l2 == 0) {
+                    $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked", false);
+                }
+            }
+        });
+
+        $("#form-admin-role-add").validate({
+            rules: {
+                roleName: {
+                    required: true,
+                },
+            },
+            onkeyup: false,
+            focusCleanup: true,
+            success: "valid",
+            submitHandler: function(form) {
+                $(form).ajaxSubmit();
+                var index = parent.layer.getFrameIndex(window.name);
+                layer.alert('编辑成功');
+                parent.layer.close(index);
+            }
+        });
+    });
+    </script>
+    <!--/请在上方写此页面业务相关的脚本-->
+</body>
+
+</html>

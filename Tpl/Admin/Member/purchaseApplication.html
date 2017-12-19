@@ -1,0 +1,257 @@
+<include file="Public/Admin/Common/Meta.html" />
+<title>提货申请</title>
+</head>
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 提货申请中心 <span class="c-gray en">&gt;</span> 提货申请 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+    <div class="page-container">
+        <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="applicationExport()" class="btn btn-primary radius"> 导出数据</a> </span><span class="r">共有数据：<strong><{$count}></strong> 条</span> </div>
+        <if condition="$is_mobile eq 1">
+            <div class="mt-20" style="width: 700px;">
+                <else />
+                <div class="mt-20">
+        </if>
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+                <tr class="text-c">
+                    <th width="25">
+                        <input type="checkbox" name="" value="">
+                    </th>
+                    <th width="50">ID</th>
+                    <th width="70">提货人帐号</th>
+                    <th width="50">姓名</th>
+                    <th width="50">推荐人</th>
+                    <th width="70">联合创始人</th>
+                    <th width="50">产品名称</th>
+                    <th width="50">提货数量</th>
+                    <th width="50">总价</th>
+                    <th width="70">手机</th>
+                    <th width="120">收货地址</th>
+                    <th width="120">申请时间</th>
+                    <th width="50">总代状态</th>
+                    <th width="70">联创审核状态</th>
+                    <th width="180">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="thsq_list" item="list">
+                    <tr class="text-c">
+                        <td>
+                            <input type="checkbox" value="<{$list.id}>" class="checkbox">
+                        </td>
+                        <td>
+                            <{$list.id}>
+                        </td>
+                        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('','__CONTROLLER__/memberShow/account/<{$list.t_account}>','360','400')"><{$list.t_account}></u></td>
+                        <td>
+                            <{$list.name}>
+                        </td>
+                        <td>
+                            <u style="cursor:pointer" class="text-primary" onclick="member_show('','__CONTROLLER__/memberShow/account/<{$list.t_recommend}>','360','400')"><{$list.t_recommend}></u>
+                        </td>
+                        <td><u style="cursor:pointer" class="text-primary" onclick="member_show('','__CONTROLLER__/memberShow/account/<{$list.recommend_lc}>','360','400')"><{$list.recommend_lc}></u>
+                        </td>
+                        <td><{$list.p_name}></td>
+                        <td>
+                            <{$list.t_amount}>
+                        </td>
+                        <td>
+                            <if condition="$list['p_name'] eq 真艾宝">
+                            <{$list['t_amount']*86}>
+                            <else />
+                            <{$list['t_amount']/5*86}>
+                        </if>
+                        </td>
+                        <td>
+                            <{$list.t_phone}>
+                        </td>
+                        <td class="text-l">
+                            <{$list.s_addr}>
+                        </td>
+                        <td>
+                            <{$list.t_time|date='Y-m-d H:i:s' ,###}>
+                        </td>
+                        <td>
+                            <if condition="$list['is_zd'] eq 0">
+                                <span class="label label-defaunt radius">未审核</span>
+                                <else />
+                                <span class="label label-success radius">已审核</span>
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$list['lc_check'] eq 0">
+                                <span class="label label-defaunt radius">未审核</span>
+                                <elseif condition="$list['lc_check'] eq 1" />
+                                <span class="label label-success radius">已通过</span>
+                                <else />
+                                <span class="label label-defaunt radius">未通过</span>
+                            </if>
+                        </td>
+                        <td class="td-manage">
+                            <button class="btn btn-success small" onclick="pass(this,<{$list.id}>)">通过申请</button>
+                            <button class="btn btn-danger small" onclick="refuse(this,<{$list.id}>)">拒绝申请</button>
+                        </td>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+        </div>
+        </div>
+        <include file="Public/Admin/Common/Footer.html" />
+        <!--请在下方写此页面业务相关的脚本-->
+        <script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Admin/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/Admin/lib/laypage/1.2/laypage.js"></script>
+        <script type="text/javascript">
+        function applicationExport() {
+            window.location.href = "__MODULE__/Manage/applicationExport";
+        }
+        $(function() {
+            $('.table-sort').dataTable({
+                "aaSorting": [
+                    [1, "desc"]
+                ], //默认第几个排序
+                "bStateSave": true, //状态保存
+                "aoColumnDefs": [
+                    //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+                    { "orderable": false, "aTargets": [0, 2, 3, 4, 5, 6, 7, 9, 10, 12,13,14] } // 制定列不参与排序
+                ]
+            });
+
+        });
+        /*提货申请-添加*/
+        function member_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        /*提货申请-查看*/
+        function member_show(title, url, id, w, h) {
+            layer_show(title, url, id, w, h);
+        }
+        /*提货申请-拒绝*/
+        function refuse(obj, id) {
+            var is_mobile = <{$is_mobile}>;
+            if (is_mobile == 1) {
+                /*提货申请-通过*/
+                var r = confirm("确认要拒绝吗？");
+                if (r) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '__CONTROLLER__/purchaseRefuse',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.code == 1) {
+                                $(obj).parents("tr").remove();
+                                alert(data.msg);
+                            } else {
+                                alert(data.msg);
+                            }
+
+                        },
+                        error: function(data) {
+                            console.log(data.msg);
+                        },
+                    });
+
+                } else {
+                    return false;
+                }
+            } else {
+                layer.confirm('确认要拒绝吗？', function(index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '__CONTROLLER__/purchaseRefuse',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.code == 1) {
+                                $(obj).parents("tr").remove();
+                                layer.msg(data.msg, { icon: 6, time: 1000 });
+                            } else {
+                                layer.msg(data.msg, { icon: 6, time: 1500 });
+                            }
+
+                        },
+                        error: function(data) {
+                            console.log(data.msg);
+                        },
+                    });
+                });
+            }
+        }
+
+        function pass(obj, id) {
+
+            var is_mobile = <{$is_mobile}>;
+            if (is_mobile == 1) {
+                /*提货申请-通过*/
+                var r = confirm("确认要通过吗？");
+                if (r) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '__CONTROLLER__/purchaseAgree',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.code == 1) {
+                                $(obj).parents("tr").remove();
+                                alert(data.msg);
+                            } else {
+                                alert(data.msg);
+                            }
+
+                        },
+                        error: function(data) {
+                            console.log(data.msg);
+                        },
+                    });
+
+                } else {
+                    return false;
+                }
+            } else {
+                layer.confirm('确认要通过吗？', function(index) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '__CONTROLLER__/purchaseAgree',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.code == 1) {
+                                $(obj).parents("tr").remove();
+                                layer.msg(data.msg, { icon: 6, time: 1000 });
+                            } else {
+                                layer.msg(data.msg, { icon: 6, time: 1500 });
+                            }
+
+                        },
+                        error: function(data) {
+                            console.log(data.msg);
+                        },
+                    });
+                });
+            }
+        }
+
+        /*提货申请-编辑*/
+        function member_edit(title, url, id, w, h) {
+            layer_show(title, url, w, h);
+        }
+        /*提货记录-删除*/
+        function datadel() {
+            layer.confirm('确认要删除吗？', function(index) {
+                $(".checkbox:checked").each(function() {
+                    var id = $(this).val();
+                    $.post("__MODULE__/Member/purchaseDel", { id: id }, function(data) {
+                        if (data.code == 1) {
+                            $(".checkbox:checked").parent().parent().remove();
+                            layer.msg('已删除!', { icon: 1, time: 1000 });
+                        }
+                    }, "json")
+                })
+            });
+        }
+        </script>
+</body>
+
+</html>

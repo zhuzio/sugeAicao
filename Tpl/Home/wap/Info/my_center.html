@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>个人中心</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/index.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<style type="text/css">
+    .myCenter_container{
+        padding-top: .25rem;
+    }
+    .myC_list{
+        width: 100%;
+        height: auto;
+        margin-top: .2rem;
+        background: white;
+
+    }
+    .m_each_list{
+        width: 94%;
+        height: 1rem;
+        margin: 0 auto;
+        background: url("__HOME_IMAGES__/right.png") no-repeat right center;
+        background-size: auto .3rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
+   .myC_list >.m_each_list:nth-last-child(1){
+        border: none;
+    }
+    .m_each_list >a{
+        display: block;
+        width: 100%;
+        height: 100%;
+        font-size: .28rem;
+        line-height: 1rem;
+    }
+    .quit_login{
+        display: block;
+        width: 75%;
+        height: .8rem;
+        margin: 0 auto;
+        border: none;
+        border-radius: .2rem;
+        font-size: .28rem;
+        color: white;
+        background: #c7c7c7
+    }
+    .quit{
+        margin-top: .8rem;
+    }
+</style>
+<body>
+    <div class="myCenter_container">
+        <div class="myC_list">
+            <div class="m_each_list"><a href="__MODULE__/Info/withdraw">申请提现</a></div>
+            <div class="m_each_list"><a href="__MODULE__/Index/certificate">授权证书</span></a></div>
+        </div>
+        <div class="myC_list">
+            <div class="m_each_list"><a href="__MODULE__/Info/changePassword">修改密码</a></div>
+            <div class="m_each_list"><a href="__MODULE__/Info/addressManger">收货地址管理</span></a></div>
+            <div class="m_each_list"><a href="__MODULE__/Info/changeInfo">修改个人资料</a></div>
+        </div>
+        <div class="myC_list">
+            <div class="m_each_list"><a href="__MODULE__/Info/feedBack">联系我们</a></div>
+        </div>
+        <div class="quit">
+            <button class="quit_login">退出登录</button>
+        </div>
+    </div>
+    <include file="Tpl/Home/wap/bottom.html"/>
+</body>
+<script>
+    $(".my_cneter img").attr("src","__HOME_IMAGES__/3_selectmy.png");
+    $(".my_cneter p").css("color","#fd5b0c");
+    //退出登录点击事件
+    $(".quit_login").click(function () {
+        window.location.href = "__MODULE__/Login/loginOut";
+    })
+</script>
+</html>

@@ -1,0 +1,246 @@
+head{
+    width: 100%;
+    height: auto;
+}
+.index_container{
+    background: url("/Public/Home/zabxq/img/BG.png") no-repeat center;
+    background-size: 100% 100%;
+}
+head >img{
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.miaoshu{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: .3rem;
+}
+.miaoshu >div{
+    float: left;
+    height: 3rem;
+}
+.mil_c{
+    width: 100%;
+}
+.mil_c >img{
+    display: block;
+    width: auto;
+    height: 2.3rem;
+    margin: 0 auto;
+}
+.mil_top >img{
+    display: block;
+    width: 100%;
+    height: auto;
+    padding-left: .25rem;
+}
+.mi_l{
+    width: 70%;
+}
+.mi_r{
+    width: 30%;
+}
+.mi_r >img{
+    display: block;
+    width: auto;
+    height: 100%;
+}
+.m_title{
+    width: 100%;
+    height: auto;
+}
+.m_title >img{
+    display: block;
+    width: 60%;
+    margin: 0.3rem auto 0;
+}
+.say_ming{
+    width: 100%;
+    height: auto;
+    margin: .2rem auto;
+    background: url("/Public/Home/zabxq/img/3.png")no-repeat right center;
+    background-size: auto 100%;
+}
+.say_ming >li{
+    margin-bottom: .1rem;
+    padding-left: .23rem;
+    font-size: .26rem;
+}
+.say_ming .title{
+    font-size: .25rem;
+    display: inline-block;
+    width: 1rem;
+    margin-right: .5rem;
+    text-align: center;
+    background: white;
+    padding: .05rem;
+}
+.wenzi{
+    width: 93%;
+    height: auto;
+    background: #e0dedf;
+    padding: .2rem 3.5%;
+    color: #2b2f30;
+}
+.wenzi p{
+    text-indent: 2em;
+    font-size: .26rem;
+    line-height: .4rem;
+    letter-spacing: .05rem;
+}
+.pic_c{
+    width: 94%;
+    margin: 0.2rem auto;
+    height: auto;
+    font-size: .26rem;
+    background: url("/Public/Home/zabxq/img/4.png") no-repeat 130% 140%;
+    background-size: auto 85%;
+}
+.pic_title >p{
+    width: 100%;
+    text-align: center;
+    color: #b10a09;
+    line-height: .45rem;
+}
+.pic_zi >p{
+    line-height: .4rem;
+}
+.gongxiao{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .2rem auto;
+
+}
+.gongxiao >img{
+    display: block;
+    float: left;
+    width: 16.6666666%;
+    height: auto;
+}
+.gongxiao >p{
+    float: left;
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.gongxiao >p >img{
+    display: block;
+    width: 100%;
+    height: auto;
+    padding: .1rem 0 0;
+}
+.p_list{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .2rem auto;
+}
+.p_list >ul{
+    width: 100%;
+    height: 100%;
+    
+}
+.p_list li{
+    width: 10%;
+    float: left;
+    height: 2rem;
+    background: url("/Public/Home/zabxq/img/13.png") no-repeat center top;
+    background-size: 70% auto;
+    padding-top: .8rem;
+    text-align: center;
+    letter-spacing: 0.0827rem;
+    font-size: .26rem;
+    color: #3e3a3a;
+}
+.attention{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .2rem auto;
+}
+.attention >div{
+    float: left;
+    height: auto;
+    font-size: .23rem;
+    text-indent: 1.5em;
+}
+.al{
+    width: 60%;
+}
+.ar{
+    width: 40%;
+    height: 5.59rem !important;
+}
+.ar >img{
+    display: block;
+    height: 100%;
+}
+.act,
+.act_list{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .2rem auto;
+    font-size: .22rem;
+    background: url("/Public/Home/zabxq/img/16.png") no-repeat right 60%;
+    background-size: 40% auto;
+}
+.act_list{
+    background: none;
+}
+.act >p,
+.act_list >p{
+    line-height: .4rem;
+}
+.act_list >p{
+    letter-spacing: .05rem;
+}
+.c_logo{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .2rem auto;
+    text-align: center;
+}
+.c_logo >img{
+    display: block;
+    width: 15%;
+    height: auto;
+    margin: 0 auto;
+}
+.c_logo >h6{
+    font-size: .23rem;
+}
+.at{
+    font-size: .23rem;
+}
+.call{
+    display: inline-block;
+    padding: .2rem 0 .2rem .35rem;
+    background: url("/Public/Home/zabxq/img/tel.png")no-repeat left center;
+    background-size:auto 40%;
+    font-size: .34rem;
+
+}
+.call >a{
+    display: inline;
+    font-size: .26rem;
+    border: 1px solid rgb(255,150,0);
+    padding: .05rem .1rem;
+    margin-left: .3rem;
+    border-radius: .1rem;
+    color:rgb(255,150,0) ;
+}
+.fo{
+    width: 94%;
+    height: auto;
+    overflow: hidden;
+    margin: .4rem auto 0;
+    padding-bottom: .15rem;
+    font-size: .2rem;
+}
+
+

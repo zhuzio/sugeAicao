@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>管理收货地址</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="sys_top">
+        <include file="Tpl/Home/pc/top.html" />
+    </div>
+    <div class="center">
+        <!--左边-->
+        <div class="sys_left">
+            <include file="Tpl/Home/pc/left.html" />
+        </div>
+        <!--中心-->
+        <div class="sys_container">
+            <div class="recommed_container">
+                <div class="rec_tab_title">
+                    <div><a href="__MODULE__/Info/changePassword">修改密码</a></div>
+                    <div class="div_on"><a href="__MODULE__/Info/addressManger">收货地址管理</a></div>
+                    <div><a href="__MODULE__/Info/changeInfo">修改个人资料</a></div>
+                    <div><a href="__MODULE__/Index/certificate">我的授权证书</a></div>
+
+                </div>
+                <div class="manger_tab_con">
+                    <table border="0" cellpadding="0" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>收货人姓名</th>
+                                <th>收货人手机号码</th>
+                                <th>收货人地址</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="address" id="v">
+                                <tr>
+                                    <td><{$v.s_consignee}></td>
+                                    <td><{$v.s_phone}></td>
+                                    <td><{$v.s_addr}></td>
+                                    <td>
+                                        <button class="del"  onclick="set_def(<{$v.id}>)">设为默认</button>
+                                        <button class="del"  onclick="addr_del(<{$v.id}>)">删除</button>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                    <button class="addNewAD"><a href="__MODULE__/Info/addAddress">增加新地址</a></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+$(".center").css("height", ($(window).height() - 60));
+$(".left_container li:nth-child(6)").addClass("li_on").find("a").css("color", "#751d1c");
+//编辑
+/*$(".edit").click(function () {
+    var ck=$(this).is(":checked");
+    if (ck){
+        $(".edit_con").html("完成");
+        $(".set_def").stop().animate({
+            right:"0"
+        },300);
+    }else{
+        $(".edit_con").html("编辑");
+        $(".set_def").stop().animate({
+            right:"-100%"
+        },300);
+    }
+});
+*/
+//删除
+ function addr_del(id) {
+        if ( confirm('确定要删除？')){
+            $.ajax({
+                url:'__MODULE__/Info/delAddress',
+                data:{id:id},
+                type:'get',
+                success:function (data) {
+                    if (data){
+                        $(this).parent().parent().remove();
+                    }else{
+                        alert('删除失败');
+                    }
+                },
+                error:function () {
+                    alert('请求失败')
+                }
+            })
+        }
+    }
+function set_def(id){
+        $.ajax({
+            url:'__MODULE__/Info/changeAddressStatus',
+            data:{id:id},
+            type:'get',
+            success:function (data) {
+                if (data.code ==1){
+                    window.location.reload()
+                }else{
+                 alert('设置失败');
+                }
+            },
+            error:function () {
+                alert('请求失败')
+            }
+        })
+}
+        
+</script>
+
+</html>

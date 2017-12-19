@@ -1,0 +1,44 @@
+.index_logo_box{
+    width: 80%;
+    height: 50%;
+    background: url("../pc_image/title.png") no-repeat center;
+    background-size: 100% auto;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+.index_show_box{
+    width:80%;
+    height: 45%;
+    margin:  0 auto;
+}
+.index_show{
+    width: 40%;
+    height: 80%;
+    float: left;
+    background: url("../pc_image/border.png") no-repeat center;
+    background-size: 100% 90%;
+    margin: 4% 5%;
+}
+.index_show >p{
+    font-size: 26px;
+    width: 100%;
+    text-align: center;
+    margin-top: 19%;
+}
+.index_show >h1{
+    margin-top: 5%;
+    width: 100%;
+    text-align: center;
+    font-size: 34px;
+    color: #399627;
+    font-weight: 500;
+}
+.index_show >h1 >span{
+    font-size: 43px;
+    padding-right: 5px;
+}
+
+
+
+
+

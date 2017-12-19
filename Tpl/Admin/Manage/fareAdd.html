@@ -1,0 +1,124 @@
+<include file="Public/Admin/Common/Meta.html" />
+<!--/meta 作为公共模版分离出去-->
+<title>添加用户 - 艾草代理商管理平台 V 1.0</title>
+<meta name="keywords" content="艾草代理商管理平台 V 1.0">
+<meta name="description" content="艾草代理商管理平台 V 1.0">
+<link rel="stylesheet" href="__PUBLIC__/Admin/lib/layui/src/css/layui.css">
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/sccl.css">
+</head>
+
+<body>
+    <article class="page-container">
+        <form action="__CONTROLLER__/fareAddAction" method="post" class="form form-horizontal" id="form-member-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联合创始人帐号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="联合创始人帐号" id="lc_account" name="lc_account">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>提货人帐号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="提货人帐号" id="purchase_account" name="purchase_account">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="运单号" id="waybill_number" name="waybill_number">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>提货盒数：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="提货盒数" id="thsq_amount" name="thsq_amount">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="运费" id="fare" name="fare">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red"></span>是否直接扣除：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="checkbox" name="is_process" value="1"  title="直接扣除">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3">帐号检查：</label>
+                <div class="formControls col-xs-5 col-sm-6">
+                    <input type="text" class="input-text" value="" id="account">
+                </div>
+                <div class="formControls col-xs-1 col-sm-1">
+                    <input type='button' class="btn btn-primary" id="jczh" value="检查">
+                </div>
+                <div class="formControls col-xs-1 col-sm-2">
+                    <input type="text" class="input-text" id="yzq" placeholder="验证区" style="color: red;" readonly>
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+    $('#jczh').click(function() {
+        var account = $('#account').val();
+        if (account == '') {
+            alert('请输入帐号搜索！');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '__CONTROLLER__/checkAccount',
+            data: { account: account },
+            dataType: 'json',
+            success: function(data) {
+                if (data.code == 1) {
+                    $('#yzq').val(data.msg);
+                } else if (data.code == '-1') {
+                    $('#yzq').val(data.msg);
+                } else if (data.code == '-2') {
+                    $('#yzq').val(data.msg);
+                } else {
+                    $('#yzq').val('没有该帐号信息！');
+                }
+            },
+            error: function(data) {
+                console.log(data.msg);
+            },
+        });
+    })
+    $(function() {
+
+        $("#form-member-add").validate({
+            rules: {
+                lc_account: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
+                },
+                waybill_number:{
+                    required: true,
+                },
+                fare: {
+                    required: true,
+                },
+            },
+
+        });
+    });
+    </script>
+</body>
+
+</html>

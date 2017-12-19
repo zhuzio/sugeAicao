@@ -1,0 +1,65 @@
+<include file="Public/Admin/Common/Meta.html" />
+<!--/meta 作为公共模版分离出去-->
+<title>添加用户 - 艾草代理商管理平台 V 1.0</title>
+<meta name="keywords" content="艾草代理商管理平台 V 1.0">
+<meta name="description" content="艾草代理商管理平台 V 1.0">
+<link rel="stylesheet" href="__PUBLIC__/Admin/lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css" />
+</head>
+
+<body>
+    <article class="page-container">
+        <form class="form form-horizontal">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>请输入搜索的用户名：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="" id="account">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <button class="btn btn-primary radius" id="sou">提交</button>
+                </div>
+            </div>
+        </form>
+        
+    </article>
+    <div class="zTreeDemoBackground ">
+            <ul id="treeDemo" class="ztree"></ul>
+        </div>
+    <include file="Public/Admin/Common/Footer.html" />
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
+    <script type="text/javascript">
+        var setting = {
+            view: {
+                showLine: true
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            }
+        };
+       
+        var account = $('#account').val();
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            async:'false',
+            data:{account:account},
+            url: "__MODULE__/Member/getTree",
+            success: function(data) {
+                if (data.code == 1) {
+                    zNodes = data.data;
+                    $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+                    
+                } else {
+                    alert(data.msg);
+                }
+                return;
+            }
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>我的订单</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/tiHuoRecord.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+</head>
+
+<body>
+    <div class="tr_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="__MODULE__/Index/index"></a>
+            </div>
+            <div class="a_head_title">我的订单</div>
+            <div class="a_head_msg"></div>
+        </div>
+        <div class="tr_list">
+            <!--状态审核：
+                un_ck:联合创始人审核中/红
+                plt_ck:平台审核中/绿
+                over:已处理-->
+            <foreach name="th_list" item="list">
+                <div class="each_tr">
+                    <h2 class="gds_name">
+                        <span class="g_name"><{$list.p_name}></span> 
+                            <if condition="$list['pass_time'] gt 0">
+                            <span class="g_status plt_ck">通过</span>
+                            <elseif condition="$list['refuse_time'] gt 0" />
+                            <span class="g_status un_ck">驳回</span>
+                            <else />
+                            <span class="g_status un_ck">审核中</span>
+                        </if>
+                    </h2>
+                    <if condition="$list['p_name'] eq 真艾宝">
+                        <p class="gds_num">
+                            <{$list.t_amount}>盒</p>
+                        <elseif condition="$list['p_name'] eq 艾草精油" />
+                        <p class="gds_num">
+                            <{$list[ 't_amount']/5}>组</p>
+                        <else />
+                        <p class="gds_num">
+                            <{$list[ 't_amount']/5}>组</p>
+                    </if>
+                    <p class="gds_tel">
+                        <{$list.t_phone}>
+                    </p>
+                    <p class="gds_ads">
+                        <{$list.s_addr}>
+                    </p>
+                    <p class="gds_time">
+                        <{$list.t_time|date='Y-m-d H:i:s' ,###}>
+                    </p>
+                </div>
+            </foreach>
+        </div>
+        <div class="each_tr pages" style="padding-top: .25rem">
+            <{$page}>
+        </div>
+    </div>
+</body>
+<script>
+var link = '<{$f_link}>';
+window.addEventListener("popstate", function(e) {
+    window.location = link;
+}, false);
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: link
+    };
+    window.history.pushState(state, "title", link);
+}
+pushHistory();
+</script>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>我的授权证书</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+</head>
+<style type="text/css">
+	.z_container{
+		width: 100%;
+		height: auto;
+		margin: .2rem 0;
+	}
+	.z_container >img{
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.a_head_box{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+	}
+	.a_head_box >div{
+	    width: 33.3333333%;
+	    height: 100%;
+	    float: left;
+	}
+	.a_head_back >a{
+	    display: block;
+	    width: .3rem;
+	    height: .4rem;
+	    margin-top: .2rem;
+	    margin-left: .2rem;
+	    background: url("__HOME_IMAGES__/1-return.png") no-repeat center;
+	    background-size: .2rem 100%;
+	}
+	.a_head_title{
+	    text-align: center;
+	    line-height: .8rem;
+	    font-size: .3rem;
+	}
+</style>
+<body>
+	<div class="a_head_box">
+            <div class="a_head_back">
+                <a href="javascript:window.history.back()"></a>
+            </div>
+            <div class="a_head_title">我的授权证书</div>
+            <div class="a_head_msg">
+            </div>
+        </div>
+	<div class="z_container">
+		<img src="<{$filename}>" width="100%" height="100%">
+	</div>
+
+</body>
+</html>

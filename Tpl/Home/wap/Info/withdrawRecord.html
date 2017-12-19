@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>提现记录</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/withDrawRecord.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+</head>
+<body>
+<div class="wr_container">
+    <div class="a_head_box">
+        <div class="a_head_back">
+            <a href="__MODULE__/Index/index"></a>
+        </div>
+        <div class="a_head_title">提现记录</div>
+        <div class="a_head_msg">
+
+        </div>
+    </div>
+
+    <!--搜索-->
+    <!--<div class="search_container">-->
+        <!--<div class="s_container">-->
+            <!--<input type="search" class="search" placeholder="请输入关键信息">-->
+            <!--<input type="submit" class="button" value="搜索">-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--提现记录-->
+    <div class="r_list_container">
+        <table>
+            <tr>
+                <th class="u_id">编号</th>
+                <th class="u_count">提现金额(元)</th>
+                <th class="u_rcmdr">提现时间</th>
+                <th class="u_rcmdr">状态</th>
+            </tr>
+            <foreach name="tx_list" item="list">
+            <tr>
+                <td><{$list.id}></td>
+                <td><{$list.t_money}></td>
+                <td><{$list.t_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                    <if condition="$list['update_time'] eq 0">
+                        <span>审核中</span>
+                        <elseif condition="$list['pass_time'] gt 0"/>
+                        <span>已通过</span>
+                        <else />
+                        <span>已拒绝</span>
+                    </if>
+                </td>
+            </tr>
+            
+            </foreach>
+        </table>
+        <div class="pages" style="padding-top: .25rem"><{$page}></div>
+    </div>
+</div>
+</body>
+<script>
+    var link = '<{$f_link}>';
+    window.addEventListener("popstate", function(e) {
+        window.location = link;
+    }, false);
+
+    function pushHistory() {
+        var state = {
+            title: "title",
+            url: link
+        };
+        window.history.pushState(state, "title", link);
+    }
+    pushHistory();
+</script>
+</html>

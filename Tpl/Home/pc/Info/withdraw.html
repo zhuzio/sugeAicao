@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>提现申请</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/withdraw.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="sys_top">
+        <include file="Tpl/Home/pc/top.html" />
+    </div>
+    <div class="center">
+        <!--左边-->
+        <div class="sys_left">
+            <include file="Tpl/Home/pc/left.html" />
+        </div>
+        <!--中心-->
+        <div class="sys_container">
+            <div class="withdraw_container">
+                <!--余额-->
+                <div class="wd_title">
+                    <p class="count_yue">账户余额：¥
+                        <if condition="$memberInfo['balance'] eq ''">
+                            <span class="account_balance">0</span>
+                            <else />
+                            <span class="account_balance"><{$memberInfo.balance}></span>
+                        </if>
+                    </p>
+                    <a href="">提现记录</a>
+                </div>
+                <!--提现方式-->
+                <div class="wdd_box">
+                    <p class="wdd_title">提示：满
+                        <{$settings.zdtxed}>可提现！体现日期是每月
+                            <{$settings.txrq}>号！2-5个工作日到账</p>
+                    <div class="wdd_center">
+                        <div class="chose_type">
+                            <!--<div class="ct_list">
+                            <span class="ct_title">到账方式：</span>
+                            &lt;!&ndash;支付宝&ndash;&gt;
+                            <div>
+                                <input type="radio" name="type" id="zhifub"><label for="zhifub">&nbsp;&nbsp;支付宝</label>
+                                <input type="number" placeholder="请输入支付宝账号">
+                            </div>
+
+                        </div>-->
+                            <div class="ct_list">
+                                <span class="ct_title">到账方式：</span>
+                                <!--银行卡-->
+                                <div>
+                                    <input type="radio" name="type" id="yinhang" checked="checked">
+                                    <label for="yinhang">&nbsp;&nbsp;银行卡</label>
+                                    <input type="number" class="brandCard" placeholder="请输入银行卡账号">
+                                </div>
+                            </div>
+                        </div>
+                        <!--提现金额-->
+                        <div class="ct_list"><span class="ct_title">提现金额：</span>
+                            <input type="number" class="w_money" placeholder="输入金额">元</div>
+                        <!--确认提现-->
+                        <button class="wd_btn">确认提现</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+<script>
+$(".center").css("height", ($(window).height() - 60));
+$(".left_container li:nth-child(3)").addClass("li_on").find("a").css("color", "#751d1c");
+$(".wd_btn").click(function() {
+    var n_moeng = $(".account_balance").html();
+    var w_money = $(".w_money").val();
+    var brandCard = $(".brandCard").val();
+    console.log(parseFloat(n_moeng) + "-----" + parseFloat(w_money))
+    //判断提现金额与余额的大小
+    if (parseFloat(w_money) > parseFloat(n_moeng)) {
+        -layer.msg('余额不足', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else if (!$(".brandCard").val() || !$(".w_money").val()) {
+        layer.msg('请完善您的提现信息', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else {
+        layer.msg('加载中...', {
+            icon: 16,
+            shade: 0.01
+        });
+        $.ajax({
+            url: "__MODULE__/Info/withdrawAction",
+            dataType: "json",
+            type: "post",
+            data: { money: w_money, yhk: brandCard },
+            success: function(e) {
+                if (e.code == 1) {
+                    layer.msg('申请成功', {
+                        icon: 1,
+                        time: 1200,
+                    });
+                    window.location.href = "__MODULE__/Info/withdrawRecord"
+                } else {
+                    layer.msg(e.msg, {
+                        icon: 2,
+                        time: 1500,
+                    });
+                }
+
+            },
+            error: function(e) {
+
+            }
+        })
+    }
+})
+</script>
+
+</html>

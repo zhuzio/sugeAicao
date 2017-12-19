@@ -1,0 +1,108 @@
+<include file="Public/Admin/Common/Meta.html" />
+<!--/meta 作为公共模版分离出去-->
+<title>添加用户 - 艾草代理商管理平台 V 1.0</title>
+<meta name="keywords" content="艾草代理商管理平台 V 1.0">
+<meta name="description" content="艾草代理商管理平台 V 1.0">
+<link rel="stylesheet" href="__PUBLIC__/Admin/lib/layui/src/css/layui.css">
+<link rel="stylesheet" href="__PUBLIC__/Admin/css/sccl.css">
+</head>
+
+<body>
+    <article class="page-container">
+        <form class="form form-horizontal" id="form-member-add">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运单号：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="text" class="input-text" value="" placeholder="运单号" id="waybill_number" name="waybill_number">
+                </div>
+            </div>
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>运费：</label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    <input type="hidden" class="input-text" value="<{$thsq_id}>"  id="thsq_id" name="thsq_id">
+                    <input type="hidden" class="input-text" value="<{$purchase_info.id}>"  id="purchase_id" name="purchase_id">
+                    <input type="hidden" class="input-text" value="<{$thsq_amount}>"  id="thsq_amount" name="t_amount">
+                    <input type="hidden" class="input-text" value="<{$purchase_info.account}>"  id="purchase_account" name="purchase_account">
+                    <input type="hidden" class="input-text" value="<{$purchase_info.name}>"  id="purchase_name" name="purchase_name">
+                    <input type="hidden" class="input-text" value="<{$lc_info.id}>"  id="lc_id" name="lc_id">
+                    <input type="hidden" class="input-text" value="<{$lc_info.account}>"  id="lc_account" name="lc_account">
+                    <input type="hidden" class="input-text" value="<{$lc_info.name}>"  id="lc_name" name="lc_name">
+                    <input type="text" class="input-text" value="" placeholder="运费" id="fare" name="fare">
+                </div>
+            </div>
+            <div class="row cl">
+                <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                    <input class="btn btn-primary radius" id="submit" type="button" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+                </div>
+            </div>
+        </form>
+    </article>
+    <include file="Public/Admin/Common/Footer.html" />
+    <!--请在下方写此页面业务相关的脚本-->
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/My97DatePicker/4.8/WdatePicker.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+    <script type="text/javascript">
+    $('#submit').click(function() {
+        var thsq_id = $('#thsq_id').val() ;
+        var thsq_amount = $('#thsq_amount').val() ;
+        var purchase_id = $('#purchase_id').val() ;
+        var purchase_account = $('#purchase_account').val() ;
+        var purchase_name = $('#purchase_name').val() ;
+        var lc_id = $('#lc_id').val() ;
+        var lc_account = $('#lc_account').val() ;
+        var lc_name = $('#lc_name').val() ;
+        var waybill_number = $('#waybill_number').val() ;
+        var fare = $('#fare').val() ;
+        $.ajax({
+            type: 'POST',
+            url: '__CONTROLLER__/fareAdd1Action',
+            data: {
+                thsq_id:thsq_id,
+                thsq_amount:thsq_amount,
+                purchase_id: purchase_id,
+                purchase_account: purchase_account,
+                purchase_name: purchase_name,
+                lc_id: lc_id,
+                lc_account: lc_account,
+                lc_name: lc_name,
+                waybill_number:waybill_number,
+                fare:fare
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.code == 1) {
+                    layer.msg('添加成功！请刷新页面！', { icon: 1, time: 1500 });
+                }else{
+                    layer.msg('添加失败！', { icon: 1, time: 1500 });
+                }
+            },
+            error: function(data) {
+                console.log(data.msg);
+            },
+        });
+    })
+    $(function() {
+
+        $("#form-member-add").validate({
+            rules: {
+                lc_account: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
+                },
+                waybill_number: {
+                    required: true,
+                },
+                fare: {
+                    required: true,
+                },
+            },
+
+        });
+    });
+    </script>
+</body>
+
+</html>

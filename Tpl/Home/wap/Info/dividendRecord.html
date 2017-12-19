@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>账户明细</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/dividendRecord.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+</head>
+
+<body>
+    <div class="recommend_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="__MODULE__/Index/index"></a>
+            </div>
+            <div class="a_head_title">账户明细</div>
+            <div class="a_head_msg"></div>
+        </div>
+        <!--搜索-->
+        <!--<div class="search_container">-->
+            <!--<div class="s_container">-->
+                <!--<input type="search" class="search" placeholder="请输入关键信息">-->
+                <!--<input type="submit" class="button" value="搜索">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--推荐列表-->
+        <div class="r_list_container">
+            <table>
+                <tr>
+                    <th class="u_id">编号</th>
+                    <th class="u_count">贡献人帐号</th>
+                    <th class="u_count">贡献人姓名</th>
+                    <th class="u_count">原金额(元)</th>
+                    <th class="u_rcmdr">流水(元)</th>
+                    <th class="u_adter">现金额(元)</th>
+                    <th class="u_etime">说明</th>
+                    <th class="u_etime">加入时间</th>
+                </tr>
+                <foreach name="dividend_list" item="list">
+                    <tr>
+                        <td>
+                            <{$list.id}>
+                        </td>
+                        <td>
+                            <{$list.contribute_account}>
+                        </td>
+                        <td>
+                            <{$list.contribute_name}>
+                        </td>
+                        <td>
+                            <{$list.total}>
+                        </td>
+                        <td>
+                            <{$list.plus}>
+                        </td>
+                        <td>
+                            <{$list.balance}>
+                        </td>
+                        <td>
+                            <{$list.desc}>
+                        </td>
+                        <td>
+                            <{$list.create_time|date="Y-m-d H:i:s" ,###}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <div class="pages" style="padding-top: .25rem"><{$page}></div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    var link = '<{$f_link}>';
+window.addEventListener("popstate", function(e) {
+    window.location = link;
+}, false);
+
+function pushHistory() {
+    var state = {
+        title: "title",
+        url: link
+    };
+    window.history.pushState(state, "title", link);
+}
+pushHistory();
+</script>

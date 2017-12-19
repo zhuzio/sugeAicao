@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>我要进货</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/tiHuo.css">
+</head>
+
+<body>
+    <div class="a_head_box">
+        <div class="a_head_back">
+            <a href="javascript:window.history.back()"></a>
+        </div>
+        <div class="a_head_title">我要进货</div>
+        <div class="a_head_msg">
+        </div>
+    </div>
+    <div class="tiHuo_container">
+        <div class="ti_container">
+            <div class="ti_box"><span class="ti_title" style="color: red">联创姓名</span>
+                <input type="text" readonly onfocus="this.blur()" style="color: red" value="<{$lc_info.name}>">
+            </div>
+            <div class="ti_box"><span class="ti_title" style="color: red">联创电话</span>
+                <input type="text" readonly onfocus="this.blur()" style="color: red" value="<{$lc_info.m_phone}>">
+            </div>
+            <div class="ti_box"><span class="ti_title">产品名称：</span>
+                <select name="p_name" id="change_p_name" class="p_name">
+                    <option value="">请选择产品</option>
+                    <foreach name="type_info" item="info">
+                        <option value="<{$info.id}>">
+                            <{$info.p_name}>
+                        </option>
+                    </foreach>
+                </select>
+            </div>
+            <p id="show_p_info" style="color: red;padding-left: .2rem;"></p>
+            <div class="ti_box"><span class="ti_title">提货箱数：</span>
+                <input type="number" class="p_num">
+            </div>
+            <div class="ti_box"><span class="ti_title">联系电话：</span>
+                <input type="text" value="<{$s_phone}>" class="p_tel" readonly>
+            </div>
+            <div class="ti_box"><span class="ti_title">收货地址：</span>
+                <select name="" id="change_addr" class="p_city">
+                    <option value="">请选择地址</option>
+                    <foreach name="address_info" item="info">
+                        <option value="<{$info.id}>" <if condition="$info['status'] eq 1">selected</if>>
+                            <{$info.s_addr}>
+                        </option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <button class="ti_btn">确定</button>
+    </div>
+    <!--弹出层-->
+    <div class="popups_container">
+        <div class="popups_box">
+            <h1 class="p_title">提示</h1>
+            <p class="p_txt">请谨记您的联合创始人的信息，不要轻易相信陌生电话和消息！！！！！</p>
+            <div class="p_aaa"><span class="p_span">联合创始人姓名：</span><span class="p_name"><{$lc_info.name}></span></div>
+            <div class="p_aaa"><span class="p_span">联合创始人电话：</span><span class="p_tel"><{$lc_info.m_phone}></span></div>
+            <div class="btn_box">
+                <button class="known">我知道啦</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+<script>
+$(".p_num").focus(function() {
+    $(".beizhu").css("display", "block");
+});
+$(".p_num").blur(function() {
+    $(".beizhu").css("display", "none");
+});
+var bool = false;
+$(".popups_container").animate({
+    top: "0"
+}, 1000);
+if (!bool) {
+    var num = 4;
+    timer = setInterval(function() {
+        num--;
+        if (num == 0) {
+            clearInterval(timer);
+            bool == true;
+            $(".known").text("我知道啦~");
+            $(".known").click(function() {
+                $(".popups_container").animate({
+                    top: "-100%"
+                }, 300);
+            });
+        } else {
+            $(".known").text(num + "秒后可关闭")
+        }
+    }, 1000)
+}
+
+
+$('#change_addr').change(function() {
+    var id = $(this).val();
+    $.ajax({
+        url: "__MODULE__/Info/getAddrPhone",
+        dataType: "json",
+        type: "POST",
+        data: { addr_id: id },
+        success: function(data) {
+            if (data.code == 1) {
+                $('.p_tel').val(data.phone);
+            }
+        },
+        error: function(e) {
+
+        }
+    })
+})
+$('#change_p_name').change(function() {
+    var id = $(this).val();
+    console.log(id);
+    switch (id) {
+        case '1':
+            info = '每箱25盒,1箱起提。';
+            unit = '盒';
+            break;
+        case '3':
+            info = '一组5瓶,一箱5组,1箱起提。';
+            unit = '瓶';
+            break;
+        case '4':
+            info = '一组5包,一箱5组,1箱起提。';
+            unit = '包';
+            break;
+        default:
+            info = '没有选择类型';
+            unit = '';
+
+    }
+    $('#show_p_info').text(info);
+})
+var z_tel = /^1[3|5|7|8]\d{9}$/;
+var z_num = /^\+?[1-9][0-9]*$/;
+$(".ti_btn").click(function() {
+
+    var p_name = $(".p_name option:selected").text();
+    var p_id = $(".p_name option:selected").val();
+    var p_num = $(".p_num").val();
+    var p_tel = $(".p_tel").val();
+    var p_city = $(".p_city option:selected").text();
+    var p_addr = $(".p_city option:selected").val();
+    //产品名称不能为空
+    if (p_name == "请选择产品") {
+        layer.msg('产品名称不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //产品数量不能为空
+    else if (!p_num) {
+        layer.msg('产品数量不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //产品数量格式错误
+    else if (z_num.test(p_num) == false) {
+        layer.msg('产品数量格式错误', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //电话号码不能为空
+    else if (!p_tel) {
+        layer.msg('电话号码不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    //电话号码格式错误
+    else if (z_tel.test(p_tel) == false) {
+        layer.msg('电话号码格式错误', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    }
+    // 城市不能为空
+    else if (p_city == "请选择地址") {
+        layer.msg('收货地址不能为空', {
+            icon: 2,
+            time: 1500,
+        });
+        return false;
+    } else {
+        p_nums = p_num * 25;
+        layer.confirm('您的提货数量为:' + p_nums + unit + ' 共' + p_num + '箱', {
+            btn: ['取消', '知道了'] //按钮
+        }, function() {
+            layer.msg('取消申请', { icon: 2 });
+            return false;
+        }, function() {
+            $.ajax({
+                url: "__MODULE__/Info/tiHuoAction",
+                dataType: "json",
+                type: "POST",
+                data: { p_id: p_id, p_num: p_nums, p_tel: p_tel, p_addr: p_addr },
+                success: function(data) {
+                    if (data.code == 1) {
+                        layer.msg('申请成功', {
+                            icon: 1,
+                            time: 1200,
+                        });
+                        window.location.href = "__MODULE__/Info/tiHuoRecord"
+                    } else {
+                        layer.msg('申请失败请联系平台', {
+                            icon: 2,
+                            time: 1200,
+                        });
+                    }
+                },
+                error: function(e) {
+
+                }
+            })
+        });
+
+    }
+});
+</script>
+
+</html>

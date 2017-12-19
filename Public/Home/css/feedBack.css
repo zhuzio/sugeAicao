@@ -1,0 +1,95 @@
+.a_head_box{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+}
+.a_head_box >div{
+    width: 33.3333333%;
+    height: 100%;
+    float: left;
+}
+.a_head_back >a{
+    display: block;
+    width: .3rem;
+    height: .4rem;
+    margin-top: .2rem;
+    margin-left: .2rem;
+    background: url("../image/1-return.png") no-repeat center;
+    background-size: .2rem 100%;
+}
+.a_head_title{
+    text-align: center;
+    line-height: .8rem;
+    font-size: .3rem;
+}
+.feed_con{
+    width: 94%;
+    padding: 0 3% .5rem;
+    margin-top: .2rem;
+    background-color: white;
+}
+.feed_title{
+    font-size: .28rem;
+    padding: .2rem ;
+}
+.fb_tel{
+    display: block;
+    width: 90%;
+    height: .6rem;
+    margin: 0 auto;
+    font-size: .28rem;
+    border: 1px solid #ccc;
+    border-radius: .1rem;
+    padding-left: .2rem;
+}
+.feed_txt{
+    display: block;
+    width: 80%;
+    height: 2.51rem;
+    margin: 0 auto;
+    outline:none;
+    resize:none;
+    font-size: .26rem;
+    font-family: 微软雅黑;
+    color: #b6b6b6;
+    border: 1px solid #ccc;
+    padding:.1rem .2rem ;
+}
+.fb_btn{
+    display: block;
+    width: 80%;
+    height: .8rem;
+    margin:  .8rem auto 0;
+    border: none;
+    border-radius: .1rem;
+    background-color: rgb(244,105,12) ;
+    font-size: .3rem;
+    color: white;
+}
+.com_tel{
+    width: 100%;
+    height: .8rem;
+    background-color: white;
+    margin-top: .2rem;
+    text-align: left;
+    line-height: .8rem;
+    text-indent: .15rem;
+    font-size: .28rem;
+}
+.com_tel >a{
+    padding-left: 40%;
+    font-size: .29rem;
+    color: #b6b6b6;
+}
+
+
+
+
+
+
+
+
+
+
+
+

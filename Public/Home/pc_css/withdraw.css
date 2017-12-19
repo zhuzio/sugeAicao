@@ -1,0 +1,119 @@
+.withdraw_container{
+    width: 60%;
+    height: 60%;
+    margin: 5% auto 0;
+    border: 1px solid #ccc;
+}
+.wd_title{
+    width: 100%;
+    height: 50px;
+    background: #f5f5f5;
+    line-height: 50px;
+}
+.wd_title >p{
+    display: inline-block;
+    float: left;
+    font-size: 20px;
+    color: #666;
+    margin: 0 0 0 20px;
+}
+.wd_title >a{
+    display: inline-block;
+    float: right;
+    width: 88px;
+    height: 28px;
+    border: 1px solid #399627;
+    border-radius: 10px;
+    text-align: center;
+    line-height: 28px;
+    color: #399627;
+    margin: 10px 60px 0 0;
+}
+.wdd_box{
+    width: 100%;
+    height: auto;
+}
+.wdd_title{
+    font-size: 14px;
+    color: #893d3d;
+    padding: 1.5% 0 0 2%;
+}
+.wdd_center{
+    width: 85%;
+    margin: 3% auto;
+}
+.ct_title{
+    display: inline-block;
+    width: 15%;
+    font-size: 18px;
+}
+.ct_list{
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.ct_list >div{
+    display: inline-block;
+    width: 80%;
+    height: 48px;
+    border: 1px solid #ccc;
+    line-height: 48px;
+    padding-left: 10px;
+
+}
+.ct_list >div >input{
+    border: none;
+    background: none;
+    padding-left: 5px;
+    font-size: 18px;
+}
+input[type="radio"]{
+    display: none;
+
+}
+label{
+    font-size: 18px;
+    padding-right: 10px;
+    border-right:2px solid #999;
+    cursor: pointer;
+}
+label::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("../pc_image/not_choose.png") no-repeat center;
+    background-size: contain;
+    vertical-align: middle!important;
+    -webkit-border-radius: 50%;
+    -webkit-box-sizing:border-box;
+
+}
+input[type="radio"]:checked+label::before{
+    background: url("../pc_image/choose.png") no-repeat center;
+    background-size: contain;
+}
+.ct_list >input{
+    width: 160px;
+    height: 40px;
+    border: 1px solid #ccc;
+    background: none;
+    font-size: 18px;
+    padding-left: 5px;
+    margin-right: 10px;
+}
+.wd_btn{
+    display: block;
+    width: 50%;
+    height: 50px;
+    margin: 10% auto;
+    font-size: 20px;
+    color: white;
+    background: #399627;
+    border-radius: 10px;
+}
+
+
+
+
+
+

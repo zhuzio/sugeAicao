@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title>推荐列表</title>
+    <link rel="stylesheet" href="__HOME_BASS__/pc_bass.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/left_top.css">
+    <link rel="stylesheet" href="__HOME_PC_CSS__/recommedList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <script src="__ADMIN_LIB__/layer/2.4/layer.js"></script>
+</head>
+
+<body>
+    <div class="sys_top">
+        <include file="Tpl/Home/pc/top.html" />
+    </div>
+    <div class="center">
+        <!--左边-->
+        <div class="sys_left">
+            <include file="Tpl/Home/pc/left.html" />
+        </div>
+        <!--中心-->
+        <div class="sys_container">
+            <div class="recommed_container">
+                <div class="rec_tab_title">
+                    <div class="div_on"><a href="__MODULE__/Myuser/recommendList">推荐列表</a></div>
+                    <div><a href="__MODULE__/Myuser/teamList">我的团队</a></div>
+                    <div><a href="__MODULE__/Myuser/checkList">注册待审核列表</a></div>
+                    <div><a href="__MODULE__/Myuser/purchaseApplication">提货待审核列表</a></div>
+                </div>
+                <div class="rec_tab_con">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <tr>
+                                <th>会员账号</th>
+                                <th>推荐人</th>
+                                <th>审核人</th>
+                                <th>加入时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <foreach name="recommend_list" item="list">
+                                <tr>
+                                    <td>
+                                        <{$list.account}>
+                                    </td>
+                                    <td>
+                                        <{$list.recommend_account}>
+                                    </td>
+                                    <td>
+                                        <{$list.recommend_lc}>
+                                    </td>
+                                    <td>
+                                        <{$list.reg_time|date='Y-m-d H:i:s',###}>
+                                    </td>
+                                </tr>
+                            </foreach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+$(".center").css("height", ($(window).height() - 60));
+$(".left_container li:nth-child(5)").addClass("li_on").find("a").css("color", "#751d1c");
+</script>
+
+</html>

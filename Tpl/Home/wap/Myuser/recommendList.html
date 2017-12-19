@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <title>我的邀请</title>
+    <link rel="stylesheet" href="__HOME_BASS__/bass.css">
+    <link rel="stylesheet" href="__HOME_CSS__/recommendList.css">
+    <script src="__PUBLIC__/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="__PUBLIC__/css/my.css">
+</head>
+
+<body>
+    <div class="recommend_container">
+        <div class="a_head_box">
+            <div class="a_head_back">
+                <a href="__MODULE__/Index/index"></a>
+            </div>
+            <div class="a_head_title">我的邀请</div>
+            <div class="a_head_msg"></div>
+        </div>
+        <!--搜索-->
+        <!--<div class="search_container">-->
+            <!--<form class="s_container" action="__MODULE__/Myuser/recommendList" method="get">-->
+                <!--<input type="search" class="search" placeholder="请输入关键信息" name="">-->
+                <!--<input type="submit" class="button" value="搜索">-->
+            <!--</form>-->
+        <!--</div>-->
+        <!--我的邀请-->
+        <div class="r_list_container">
+            <table>
+                <tr>
+                    <th class="u_count">会员账号</th>
+                    <th class="u_rcmdr">推荐人帐号</th>
+                    <th class="u_adter">审核人帐号</th>
+                    <th class="u_etime">加入时间</th>
+                </tr>
+                <foreach name="recommend_list" item="list">
+                <tr>
+                    <td><{$list.account}></td>
+                    <td><{$list.recommend_account}></td>
+                    <td><{$list.recommend_lc}></td>
+                    <td><{$list.reg_time|date='Y-m-d H:i:s' ,###}></td>
+                </tr>
+               </foreach>
+            </table>
+            <div class="pages" style="padding-top: .25rem"><{$page}></div>
+        </div>
+
+    </div>
+</body>
+
+</html>
